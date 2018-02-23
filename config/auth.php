@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'admin',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -36,14 +36,34 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
 
-        'api' => [
+        'admin-api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'admins',
+        ],
+        
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staffs',
+        ],
+        
+        'staff-api' => [
+            'driver' => 'token',
+            'provider' => 'staffs',
+        ],
+        
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
+        
+        'student-api' => [
+            'driver' => 'token',
+            'provider' => 'students',
         ],
     ],
 
@@ -65,10 +85,20 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Administrator::class,
         ],
+        
+        'staffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Staff::class,
+        ],
+        
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Student::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -92,8 +122,20 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        
+        'staffs' => [
+            'provider' => 'staffs',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        
+        'students' => [
+            'provider' => 'students',
             'table' => 'password_resets',
             'expire' => 60,
         ],

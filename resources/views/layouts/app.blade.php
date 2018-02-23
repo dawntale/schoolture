@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome-all.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -34,6 +35,8 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
+                            <li><a class="nav-link" href="{{ route('student.login') }}">Student Login</a></li>
+                            <li><a class="nav-link" href="{{ route('staff.login') }}">Staff Login</a></li>
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
@@ -60,9 +63,8 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @yield('content')
+        
     </div>
 
     <!-- Scripts -->
