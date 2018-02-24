@@ -23,6 +23,6 @@ class StaffController extends Controller
      */
     public function index()
     {
-        return view('staff');
+        return view('staff.index');
     }
 }

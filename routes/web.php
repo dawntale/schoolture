@@ -19,9 +19,16 @@ Auth::routes();
 
 // Administrator Route
 Route::prefix('dashboard')->group(function(){
+    // Staff Section
     Route::get('/staff', 'AdministratorController@staff')->name('admin.staff');
+    Route::get('/new-staff', 'AdministratorController@newStaff')->name('admin.newStaff');
+    Route::post('/new-staff', 'AdministratorController@store_newStaff')->name('admin.newStaff.submit');
+    
+    // Student Section
     Route::get('/student', 'AdministratorController@student')->name('admin.student');
     Route::get('/subject', 'AdministratorController@subject')->name('admin.subject');
+    
+    // Dashboard Home
     Route::get('/', 'AdministratorController@index')->name('admin.dashboard');
 });
 

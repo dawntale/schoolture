@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends Controller
 {
@@ -11,9 +13,10 @@ class AdministratorController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Staff $staff)
     {
         $this->middleware('auth:admin');
+        $this->staff = $staff;
     }
 
     /**
@@ -33,7 +36,7 @@ class AdministratorController extends Controller
      */
     public function staff()
     {
-        return view('dashboard.staff');
+        return view('dashboard.staff.index');
     }
     
     /**
@@ -54,5 +57,41 @@ class AdministratorController extends Controller
     public function subject()
     {
         return view('dashboard.subject');
+    }
+    
+    /**
+     * Show the application create staff.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function newStaff()
+    {
+        return view('dashboard.staff.create');
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_newStaff(Request $request)
+    {
+        $this->validate($request, [
+            'staff_id' => 'required|unique:staffs',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:staffs',
+            'birthdate' => 'required',
+            'job_id' => 'required|in:1,2,3'
+        ]);
+        
+        $request['password'] = Hash::make(str_replace('-', '', $request->birthdate));
+        
+        $input = $request->all();
+        
+        $this->staff->create($input);
+        
+        return redirect()->back()->with('success', 'New Staff has been created!');
     }
 }
