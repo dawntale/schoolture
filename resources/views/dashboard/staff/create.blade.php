@@ -22,7 +22,7 @@
             </div>
             @endif
 
-            <form id="staff" method="POST" action="{{ route('admin.newStaff.submit') }}">
+            <form id="staff" method="POST" action="{{ route('dashboard.staff.store') }}">
                 @csrf
                 @include('dashboard.staff.partials.form')
             </form>

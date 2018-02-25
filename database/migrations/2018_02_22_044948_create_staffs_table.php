@@ -22,7 +22,7 @@ class CreateStaffsTable extends Migration
             $table->string('password');
             $table->string('photo')->nullable();
             $table->string('birthdate', 20);
-            $table->tinyinteger('job_id')->default(0);
+            $table->tinyinteger('position_id')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

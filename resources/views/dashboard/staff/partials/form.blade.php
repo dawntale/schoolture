@@ -35,15 +35,15 @@
 </div>
 <div class="row mb-3">
     <div class="col-sm-6">
-        <select class="custom-select{{ $errors->has('job_id') ? ' is-invalid' : '' }}" id="job_id" name="job_id" required>
-            <option value="{{ old('job_id') }}" selected>Choose...</option>
-            <option value="1">Headmaster</option>
-            <option value="2">Teacher</option>
-            <option value="3">Janitor</option>
+        <select class="custom-select{{ $errors->has('position_id') ? ' is-invalid' : '' }}" id="position_id" name="position_id" required {{ $positions->isEmpty() ? ' disabled' : '' }}>
+            <option value="{{ old('position_id') }}" selected>{{ $positions->isEmpty() ? ' Create Position First' : 'Choose...' }}</option>
+            @foreach($positions as $position)
+            <option value="{{ $position->id }}">{{ $position->name }}</option>
+            @endforeach
         </select>
-        @if ($errors->has('job_id'))
+        @if ($errors->has('position_id'))
         <span class="invalid-feedback">
-            <strong>{{ $errors->first('job_id') }}</strong>
+            <strong>{{ $errors->first('position_id') }}</strong>
         </span>
         @endif
     </div>

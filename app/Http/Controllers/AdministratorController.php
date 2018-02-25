@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Staff;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,10 +13,10 @@ class AdministratorController extends Controller
      *
      * @return void
      */
-    public function __construct(Staff $staff)
+    public function __construct(Student $student)
     {
         $this->middleware('auth:admin');
-        $this->staff = $staff;
+        $this->student = $student;
     }
 
     /**
@@ -27,16 +27,6 @@ class AdministratorController extends Controller
     public function index()
     {
         return view('dashboard.index');
-    }
-    
-    /**
-     * Show the application staff datatable.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function staff()
-    {
-        return view('dashboard.staff.index');
     }
     
     /**

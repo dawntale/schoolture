@@ -19,7 +19,7 @@ class Staff extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'job_id' => 'integer',
+        'position_id' => 'integer',
     ];
 
     /**
@@ -28,7 +28,7 @@ class Staff extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'staff_id', 'first_name', 'last_name', 'email', 'password', 'job_title', 'birthdate'
+        'staff_id', 'first_name', 'last_name', 'email', 'password', 'position_id', 'birthdate'
     ];
 
     /**
@@ -39,7 +39,6 @@ class Staff extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
     
     /**
      * Get the staff's full name.
