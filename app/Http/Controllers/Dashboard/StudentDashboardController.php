@@ -101,4 +101,19 @@ class StudentDashboardController extends AdministratorController
     {
         //
     }
+    
+    /**
+     * Populate all student data to datatables
+     *
+     * @return Collection
+     */
+    public function getStudentData()
+    {
+        $staff = $this->student->select(['student_id', 'email', 'first_name', 'last_name']);
+        
+        return datatables()->of($staff)
+            ->addColumn('name', '{{$first_name}} {{$last_name}}')
+            ->removeColumn('first_name', 'last_name')
+            ->make();
+    }
 }

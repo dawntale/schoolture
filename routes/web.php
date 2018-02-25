@@ -37,6 +37,7 @@ Route::prefix('dashboard')->group(function(){
     Route::prefix('student')->namespace('Dashboard')->group(function(){
         Route::get('/create', 'StudentDashboardController@create')->name('dashboard.student.create');
         Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
+        Route::get('/student-data', 'StudentDashboardController@getStudentData')->name('dashboard.student.data');
         Route::get('/', 'StudentDashboardController@index')->name('dashboard.student');
     });
     
