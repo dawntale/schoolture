@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome-all.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -29,5 +30,10 @@
     <script>
         feather.replace()
     </script>
+    <!-- Script -->
+    @yield('script')
+    
+    <!-- Dashboard Script -->
+    @yield('dashboard-scripts')
 </body>
 </html>

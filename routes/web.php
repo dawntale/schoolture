@@ -24,6 +24,7 @@ Route::prefix('dashboard')->group(function(){
     Route::prefix('staff')->namespace('Dashboard')->group(function(){
         Route::get('/create', 'StaffDashboardController@create')->name('dashboard.staff.create');
         Route::post('/create', 'StaffDashboardController@store')->name('dashboard.staff.store');
+        Route::get('/staff-data', 'StaffDashboardController@getStaffData')->name('dashboard.staff.data');
         
         // Staff Position Section
         Route::get('/position', 'PositionDashboardController@index')->name('dashboard.position.index');
