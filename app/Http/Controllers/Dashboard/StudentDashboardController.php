@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 // Controller
 use App\Http\Controllers\AdministratorController;
 
-class StaffDashboardController extends AdministratorController
+class StudentDashboardController extends AdministratorController
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class StaffDashboardController extends AdministratorController
      */
     public function index()
     {
-         return view('dashboard.staff.index');
+        return view('dashboard.student.index');
     }
 
     /**
@@ -27,10 +27,8 @@ class StaffDashboardController extends AdministratorController
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        $positions = $this->position->all();
-        
-        return view('dashboard.staff.create')->withPositions($positions);
+    {
+        return view('dashboard.student.create');
     }
 
     /**
@@ -42,21 +40,21 @@ class StaffDashboardController extends AdministratorController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'staff_id' => 'required|unique:staffs',
+            'student_id' => 'required|unique:students',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|email|unique:staffs',
+            'email' => 'required|email|unique:students',
             'birthdate' => 'required',
-            'position_id' => 'required|in:1,2,3'
+            'sex' => 'required|in:Male,Female'
         ]);
         
         $request['password'] = Hash::make(str_replace('-', '', $request->birthdate));
         
         $input = $request->all();
         
-        $this->staff->create($input);
+        $this->student->create($input);
         
-        return redirect()->back()->with('success', 'New Staff has been created!');
+        return redirect()->back()->with('success', 'New Student has been created!');
     }
 
     /**
@@ -102,21 +100,5 @@ class StaffDashboardController extends AdministratorController
     public function destroy($id)
     {
         //
-    }
-    
-    /**
-     * Populate all staff data
-     *
-     * @return Collection
-     */
-    public function getStaffData()
-    {
-        $staff = $this->staff->leftJoin('staff_positions', 'staffs.position_id', '=', 'staff_positions.id')->select(['staff_id', 'email', 'staff_positions.name as position', 'first_name', 'last_name']);
-        
-        return datatables()->of($staff)
-            ->addColumn('name', '{{$first_name}} {{$last_name}}')
-            ->addColumn('position', '{{$position}}')
-            ->removeColumn('first_name', 'last_name')
-            ->make();
     }
 }

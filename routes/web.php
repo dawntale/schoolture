@@ -34,7 +34,13 @@ Route::prefix('dashboard')->group(function(){
     });
     
     // Student Section
-    Route::get('/student', 'AdministratorController@student')->name('admin.student');
+    Route::prefix('student')->namespace('Dashboard')->group(function(){
+        Route::get('/create', 'StudentDashboardController@create')->name('dashboard.student.create');
+        Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
+        Route::get('/', 'StudentDashboardController@index')->name('dashboard.student');
+    });
+    
+    // Subject Section
     Route::get('/subject', 'AdministratorController@subject')->name('admin.subject');
     
     // Dashboard Home

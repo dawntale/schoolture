@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+// Model
+use App\Staff;
+use App\Position;
 use App\Student;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends Controller
 {
@@ -13,9 +14,11 @@ class AdministratorController extends Controller
      *
      * @return void
      */
-    public function __construct(Student $student)
+    public function __construct(Staff $staff, Position $position, Student $student)
     {
         $this->middleware('auth:admin');
+        $this->staff = $staff;
+        $this->position = $position;
         $this->student = $student;
     }
 
@@ -30,16 +33,6 @@ class AdministratorController extends Controller
     }
     
     /**
-     * Show the application student datatable.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function student()
-    {
-        return view('dashboard.student');
-    }
-    
-    /**
      * Show the application subject datatable.
      *
      * @return \Illuminate\Http\Response
@@ -49,39 +42,4 @@ class AdministratorController extends Controller
         return view('dashboard.subject');
     }
     
-    /**
-     * Show the application create staff.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function newStaff()
-    {
-        return view('dashboard.staff.create');
-    }
-    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store_newStaff(Request $request)
-    {
-        $this->validate($request, [
-            'staff_id' => 'required|unique:staffs',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email|unique:staffs',
-            'birthdate' => 'required',
-            'job_id' => 'required|in:1,2,3'
-        ]);
-        
-        $request['password'] = Hash::make(str_replace('-', '', $request->birthdate));
-        
-        $input = $request->all();
-        
-        $this->staff->create($input);
-        
-        return redirect()->back()->with('success', 'New Staff has been created!');
-    }
 }

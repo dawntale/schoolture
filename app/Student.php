@@ -19,7 +19,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'student_id', 'email', 'password',
+        'student_id', 'first_name', 'last_name', 'email', 'password', 'birthdate', 'sex'
     ];
 
     /**
@@ -30,4 +30,15 @@ class Student extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /**
+     * Get the student's full name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }

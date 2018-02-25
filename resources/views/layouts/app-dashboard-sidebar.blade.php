@@ -19,13 +19,19 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="shopping-cart"></span>Students</a>
+                <a class="nav-link" href="#"><span data-feather="user"></span>Student</a>
                 <ul class="pl-2 nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('admin.student')) }}"><span data-feather="file"></span>All Students</a>
+                        <a class="nav-link" href="{{ url(route('dashboard.student')) }}"><span data-feather="users"></span>All Students</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><span data-feather="file"></span>Add New</a>
+                        <a class="nav-link" href="{{ url(route('dashboard.student.create')) }}"><span data-feather="user-plus"></span>Add New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span data-feather="user-plus"></span>Add Grade</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span data-feather="user-plus"></span>Add Class</a>
                     </li>
                 </ul>
             </li>
