@@ -17,17 +17,32 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            if ($guard == 'admin'){
-                return redirect(route('admin.dashboard'));
-            } else if ($guard == 'staff') {
-                return redirect(route('staff.dashboard'));
-            } else if ($guard == 'student') {
-                return redirect(route('student.dashboard'));
-            } else {
-                return redirect($guard);
-            }
+        switch ($guard) {
+            case 'admin':
+                if (Auth::guard($guard)->check()){
+                    return redirect()->route('admin.dashboard');
+                }
+                break;
+            
+            case 'staff':
+                if (Auth::guard($guard)->check()){
+                    return redirect()->route('staff.dashboard');
+                }
+                break;
+
+            case 'student':
+                if (Auth::guard($guard)->check()){
+                    return redirect()->route('student.dashboard');
+                }
+                break;
+
+            default:
+                if (Auth::guard($guard)->check()){
+                    return redirect($guard);
+                }
+                break;
         }
+        
         return $next($request);
     }
 }

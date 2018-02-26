@@ -8,7 +8,13 @@
                 <div class="card-header">Reset Password</div>
 
                 <div class="card-body">
+                    @if(request()->route()->getName() === 'password.reset')
                     <form method="POST" action="{{ route('password.request') }}">
+                    @elseif(request()->route()->getName() === 'staff.password.reset')
+                    <form method="POST" action="{{ route('staff.password.request') }}">
+                    @else
+                    <form method="POST" action="{{ route('student.password.request') }}">
+                    @endif
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
@@ -28,7 +34,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>

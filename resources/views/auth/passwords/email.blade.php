@@ -14,7 +14,14 @@
                         </div>
                     @endif
 
+                    @if(request()->route()->getName() === 'password.request')
                     <form method="POST" action="{{ route('password.email') }}">
+                    @elseif(request()->route()->getName() === 'staff.password.request')
+                    <form method="POST" action="{{ route('staff.password.email') }}">
+                    @else
+                    <form method="POST" action="{{ route('student.password.email') }}">
+                    @endif
+
                         @csrf
 
                         <div class="form-group row">

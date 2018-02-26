@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+    @include('layouts.app-dashboard-navbar')
+@endsection
+
 @section('content')
 <div class="container">
         <main role="main" class="pt-3 px-4">
