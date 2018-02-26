@@ -36,6 +36,7 @@
     - `$admin->email = "Your Email"`
     - `$admin->password = Hash::make("Your Password")`
     - You can close tinker [CTRL + C]
+ - Or you can go to `http://example.com/dashboard/register`
  - Done
  - Now, login.
 
