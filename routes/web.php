@@ -40,6 +40,10 @@ Route::prefix('dashboard')->group(function(){
         Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
         Route::get('/student-data', 'StudentDashboardController@getStudentData')->name('dashboard.student.data');
         Route::get('/', 'StudentDashboardController@index')->name('dashboard.student');
+
+        // Student Grade Section
+        Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');
+        Route::post('/grade', 'GradeDashboardController@store')->name('dashboard.grade.store');
     });
     
     // Subject Section
