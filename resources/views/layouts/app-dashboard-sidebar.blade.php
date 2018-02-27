@@ -36,7 +36,7 @@
                         <a class="nav-link" href="{{ url(route('dashboard.grade.index')) }}"><span data-feather="user-plus"></span>Add Grade</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><span data-feather="user-plus"></span>Add Class</a>
+                        <a class="nav-link" href="{{ url(route('dashboard.class.index')) }}"><span data-feather="user-plus"></span>Add Class</a>
                     </li>
                 </ul>
             </li>

@@ -16,6 +16,11 @@ class Grade extends Model
     protected $fillable = [
         'name', 'schoolyear_start', 'schoolyear_end',
     ];
+
+    public function classroom(){
+        return $this->hasMany('App\Classroom', 'grade_id', 'id');
+    }
+
     /**
      * Get the grade's school year.
      *

@@ -7,6 +7,7 @@ use App\Staff;
 use App\Student;
 use App\Position;
 use App\Grade;
+use App\Classroom;
 
 class AdministratorController extends Controller
 {
@@ -15,13 +16,14 @@ class AdministratorController extends Controller
      *
      * @return void
      */
-    public function __construct(Staff $staff, Student $student, Position $position, Grade $grade)
+    public function __construct(Staff $staff, Student $student, Position $position, Grade $grade, Classroom $classroom)
     {
         $this->middleware('auth:admin');
         $this->staff = $staff;
         $this->student = $student;
         $this->position = $position;
         $this->grade = $grade;
+        $this->classroom = $classroom;
     }
 
     /**
