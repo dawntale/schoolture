@@ -35,7 +35,7 @@ class StaffLoginController extends Controller
      */
     public function __construct(){
         // Every Visitor can access student login controller
-        $this->middleware('guest:staff');
+        $this->middleware('guest:staff')->except('logout');
     }
     
     /**
@@ -48,7 +48,7 @@ class StaffLoginController extends Controller
     }
     
     /**
-     * Get the login username from student_id to be used by the controller.
+     * Get the login username from staff_id to be used by the controller.
      *
      * @return string
      */

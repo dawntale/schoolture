@@ -55,7 +55,7 @@ Route::prefix('staff')->group(function(){
     Route::namespace('Auth\Staff')->group(function(){
         Route::get('/login', 'StaffLoginController@showLoginForm')->name('staff.login');
         Route::post('/login', 'StaffLoginController@login')->name('staff.login.submit');
-        Route::get('/logout', 'StaffLoginController@logout')->name('staff.logout');
+        Route::post('/logout', 'StaffLoginController@logout')->name('staff.logout');
     });
 
     // Staff Reset Password Section
@@ -75,7 +75,7 @@ Route::prefix('student')->group(function(){
     Route::namespace('Auth\Student')->group(function(){
         Route::get('/login', 'StudentLoginController@showLoginForm')->name('student.login');
         Route::post('/login', 'StudentLoginController@login')->name('student.login.submit');
-        Route::get('/logout', 'StudentLoginController@logout')->name('student.logout');
+        Route::post('/logout', 'StudentLoginController@logout')->name('student.logout');
     });
 
     // Student Reset Password Section

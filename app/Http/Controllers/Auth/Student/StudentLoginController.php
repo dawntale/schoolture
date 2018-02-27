@@ -35,7 +35,7 @@ class StudentLoginController extends Controller
      */
     public function __construct(){
         // Every Visitor can access student login controller
-        $this->middleware('guest:student');
+        $this->middleware('guest:student')->except('logout');
     }
     
     /**
