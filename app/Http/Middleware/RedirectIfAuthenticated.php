@@ -18,12 +18,6 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         switch ($guard) {
-            case 'admin':
-                if (Auth::guard($guard)->check()){
-                    return redirect()->route('admin.dashboard');
-                }
-                break;
-            
             case 'staff':
                 if (Auth::guard($guard)->check()){
                     return redirect()->route('staff.dashboard');
@@ -38,7 +32,7 @@ class RedirectIfAuthenticated
 
             default:
                 if (Auth::guard($guard)->check()){
-                    return redirect($guard);
+                    return redirect()->route('admin.dashboard');;
                 }
                 break;
         }
