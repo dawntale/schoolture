@@ -16,13 +16,11 @@
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <!-- Navbar -->
-        @yield('navbar')
-        
-        <!-- Content -->
-        @yield('content')
-    </div>
+    <!-- Navbar -->
+    @yield('navbar')
+    
+    <!-- Content -->
+    @yield('content')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
