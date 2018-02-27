@@ -40,6 +40,11 @@ class Staff extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position', 'position_id', 'id');
+    }
     
     /**
      * Get the staff's full name.
