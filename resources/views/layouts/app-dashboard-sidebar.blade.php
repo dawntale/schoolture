@@ -30,6 +30,14 @@
                 </ul>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Subject</a>
+                <ul class="pl-2 nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard.subject.create') }}"><span data-feather="plus-square"></span>Add Subject</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#"><span data-feather="user"></span>Manage Grade & Class</a>
                 <ul class="pl-2 nav flex-column">
                     <li class="nav-item">
