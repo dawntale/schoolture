@@ -72,4 +72,15 @@ class Staff extends Authenticatable
     {
         $this->notify(new StaffResetPasswordNotification($token));
     }
+
+    /**
+     * Scope staff from position name.
+     *
+     */
+    public function scopePositionName($query, $name)
+    {
+        return $query->whereHas('position', function($q) use ($name){
+            $q->where('name', $name);
+        });
+    }
 }

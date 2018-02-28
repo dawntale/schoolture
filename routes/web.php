@@ -54,6 +54,8 @@ Route::prefix('dashboard')->group(function(){
     Route::prefix('subject')->namespace('Dashboard')->group(function(){
         Route::get('/create', 'SubjectDashboardController@create')->name('dashboard.subject.create');
         Route::post('/create', 'SubjectDashboardController@store')->name('dashboard.subject.store');
+        Route::get('/assign-teacher', 'SubjectDashboardController@teacher')->name('dashboard.subject.teacher');
+        Route::post('/assign-teacher', 'SubjectDashboardController@teacherStore')->name('dashboard.subject.teacher.store');
     });
     
     // Dashboard Home

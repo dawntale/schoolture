@@ -35,6 +35,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.subject.create') }}"><span data-feather="plus-square"></span>Add Subject</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard.subject.teacher') }}"><span data-feather="plus-square"></span>Assign Teacher</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item">
