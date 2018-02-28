@@ -45,6 +45,11 @@ class Staff extends Authenticatable
     {
         return $this->belongsTo('App\Position', 'position_id', 'id');
     }
+
+    public function subject()
+    {
+        return $this->belongsToMany('App\Subject', 'teachers_subjects', 'staff_id', 'subject_id')->withTimestamps();
+    }
     
     /**
      * Get the staff's full name.

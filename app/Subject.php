@@ -16,4 +16,9 @@ class Subject extends Model
     protected $fillable = [
         'subject_code', 'name', 'description'
     ];
+
+    public function staff()
+    {
+    	return $this->belongsToMany('App\Staff', 'teachers_subjects', 'subject_id', 'staff_id')->withTimestamps();
+    }
 }
