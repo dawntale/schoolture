@@ -14,8 +14,19 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'schoolyear_start', 'schoolyear_end',
+        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_id',
     ];
+
+    /**
+     * Get the grade's department.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function department()
+    {
+        return $this->belongsTo('App\Department', 'department_id');
+    }
 
     public function classroom(){
         return $this->hasMany('App\Classroom', 'grade_id', 'id');

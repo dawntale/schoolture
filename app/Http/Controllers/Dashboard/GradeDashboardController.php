@@ -18,13 +18,15 @@ class GradeDashboardController extends AdministratorController
     {
         $year = Carbon::now()->year;
 
+        $departments = $this->department->all();
+
         // Grade collection from current year
         $grades = $this->grade->where('schoolyear_start', $year)->orderBy('schoolyear_start', 'desc')->get();
 
         // Grade collection from past year
         $oldGrades = $this->grade->where('schoolyear_start', '<', $year)->orderBy('schoolyear_start', 'desc')->get();
         
-        return view('dashboard.gradeclass.create-grade')->withGrades($grades)->withOldGrades($oldGrades);
+        return view('dashboard.gradeclass.create-grade')->withDepartments($departments)->withGrades($grades)->withOldGrades($oldGrades);
     }
 
     /**
@@ -46,6 +48,7 @@ class GradeDashboardController extends AdministratorController
     public function store(Request $request)
     {
         $this->validate($request, [
+            'code' => 'required|unique:grades',
             'name' => 'required|unique:grades,name,NULL,NULL,schoolyear_start,'. $request['schoolyear_start'],
             'schoolyear_start' => 'required|integer|digits:4'
         ],

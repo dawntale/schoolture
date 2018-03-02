@@ -15,9 +15,11 @@ class CreateGradesTable extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code')->unique();
             $table->string('name');
             $table->smallinteger('schoolyear_start');
             $table->smallinteger('schoolyear_end');
+            $table->integer('department_id');
             $table->timestamps();
         });
     }

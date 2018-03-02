@@ -30,6 +30,14 @@
                         </div>
                         <div class="card-body">
                         <div class="mb-3">
+                            <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Grade Code" required>
+                            @if ($errors->has('code'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('code') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="mb-3">
                             <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Grade Name" required>
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">
@@ -45,6 +53,19 @@
                                 </span>
                             @endif
                         </div>
+                        <div class="mb-3">
+                            <select class="custom-select{{ $errors->has('department_id') ? ' is-invalid' : '' }}" id="department_id" name="department_id" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
+                                <option value="{{ old('department_id') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
+                                @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('department_id'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('department_id') }}</strong>
+                            </span>
+                            @endif
+                        </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
@@ -58,12 +79,12 @@
                         @if($grades->isNotEmpty())
                         <h5>Current Grades <span class="text-muted">({{ Carbon\Carbon::now()->year }})</span></h5>
                         @foreach($grades as $grade)
-                            <p class="card-title">{{ $grade->name }} ({{ $grade->schoolyear }})</p>
+                            <p class="card-title">{{ $grade->name }} ({{ $grade->schoolyear }})<span class="float-right">{{ $grade->department->name }}</span></p>
                         @endforeach
                         <hr>
                         <h5>Last Years Grades</h5>
                         @foreach($oldGrades as $oGrade)
-                            <p class="card-title">{{ $oGrade->name }} ({{ $oGrade->schoolyea }})</p>
+                            <p class="card-title">{{ $oGrade->name }} ({{ $oGrade->schoolyear }})<span class="float-right">{{ $grade->department->name }}</span></p>
                         @endforeach
                         @else
                             <h5 class="card-title">No Grade Availlable</h5>
