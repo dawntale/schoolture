@@ -24,8 +24,6 @@ class CreateStudentsTable extends Migration
             $table->string('birthdate', 10);
             $table->string('birthplace', 50)->nullable();
             $table->string('sex', 20);
-            $table->string('grade_id')->default(0);
-            $table->string('class_id')->default(0);
             $table->string('religion', 20)->nullable();
             $table->tinyinteger('nationality_id')->nullable();
             $table->rememberToken();

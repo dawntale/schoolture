@@ -46,6 +46,7 @@ Route::prefix('dashboard')->group(function(){
         Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
         Route::get('/student-data', 'StudentDashboardController@getStudentData')->name('dashboard.student.data');
         Route::get('/', 'StudentDashboardController@index')->name('dashboard.student');
+        Route::get('/{student}', 'StudentDashboardController@show')->name('dashboard.student.show');
 
         // Student Grade Section
         Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');

@@ -31,6 +31,11 @@ class Student extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function class()
+    {
+        return $this->belongsToMany('App\Classroom', 'students_classes', 'student_id', 'class_id');
+    }
     
     /**
      * Get the student's full name.

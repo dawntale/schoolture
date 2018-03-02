@@ -65,7 +65,9 @@ class StudentDashboardController extends AdministratorController
      */
     public function show($id)
     {
-        //
+        $student = $this->student->find($id)->first();
+
+        return view('dashboard.student.show')->withStudent($student);
     }
 
     /**
