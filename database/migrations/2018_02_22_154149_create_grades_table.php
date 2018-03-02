@@ -20,6 +20,7 @@ class CreateGradesTable extends Migration
             $table->smallinteger('schoolyear_start');
             $table->smallinteger('schoolyear_end');
             $table->integer('department_id');
+            $table->boolean('status')->default(0); // Active / Inactive
             $table->timestamps();
         });
     }

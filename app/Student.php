@@ -39,7 +39,7 @@ class Student extends Authenticatable
 
     public function class()
     {
-        return $this->belongsToMany('App\Classroom', 'students_classes', 'student_id', 'class_id');
+        return $this->belongsToMany('App\Classroom', 'students_classes', 'student_id', 'class_id')->withTimestamps();;
     }
     
     /**
