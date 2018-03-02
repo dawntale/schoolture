@@ -67,34 +67,36 @@
                         </div>
                     </div>
                 </form>
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Availlable Class</h4>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-responsive">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Homeroom Teacher</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if($classrooms->isNotEmpty())
-                                    @foreach($classrooms as $classroom)
-                                    <tr>
-                                        <td>{{ $classroom->grade->name }}/{{ $classroom->name }} ({{ $classroom->grade->schoolyear }})</td>
-                                        <td>{{ $classroom->homeroomTeacher->name }}</td>
-                                    </tr>
-                                    @endforeach
-                                    @else
-                                        <h5 class="card-title">No Class Availlable</h5>
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Availlable Class</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Department</th>
+                                <th>Grade</th>
+                                <th>Class</th>
+                                <th>Homeroom Teacher</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($classrooms->isNotEmpty())
+                            @foreach($classrooms as $classroom)
+                            <tr>
+                                <td>{{ $classroom->grade->department->name }}</td>
+                                <td>{{ $classroom->grade->name }} ({{ $classroom->grade->schoolyear }})</td>
+                                <td>{{ $classroom->name }}</td>
+                                <td>{{ $classroom->homeroomTeacher->name }}</td>
+                            </tr>
+                            @endforeach
+                            @else
+                                <h5 class="card-title">No Class Availlable</h5>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
