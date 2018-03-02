@@ -20,7 +20,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'student_id', 'first_name', 'last_name', 'email', 'password', 'birthdate', 'sex'
+        'student_id', 'first_name', 'last_name', 'email', 'password', 'birthdate', 'sex', 'grade_id'
     ];
 
     /**
@@ -31,6 +31,11 @@ class Student extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function grade()
+    {
+        return $this->belongsTo('App\Grade');
+    }
 
     public function class()
     {

@@ -28,7 +28,9 @@ class StudentDashboardController extends AdministratorController
      */
     public function create()
     {
-        return view('dashboard.student.create');
+        $grades = $this->grade->orderBy('schoolyear_start', 'desc')->get();
+
+        return view('dashboard.student.create')->withGrades($grades);
     }
 
     /**
@@ -45,7 +47,8 @@ class StudentDashboardController extends AdministratorController
             'last_name' => 'required|string',
             'email' => 'required|email|unique:students',
             'birthdate' => 'required',
-            'sex' => 'required|in:Male,Female'
+            'sex' => 'required|in:Male,Female',
+            'grade_id' => 'required|integer',
         ]);
         
         $request['password'] = Hash::make(str_replace('-', '', $request->birthdate));
@@ -65,9 +68,12 @@ class StudentDashboardController extends AdministratorController
      */
     public function show($id)
     {
-        $student = $this->student->find($id)->first();
+        $student = $this->student->findOrFail($id);
 
-        return view('dashboard.student.show')->withStudent($student);
+        // Only get classes with the same grade as the student
+        $classes = $this->classroom->where('grade_id', $student->grade_id)->get();
+
+        return view('dashboard.student.show')->withStudent($student)->withClasses($classes);
     }
 
     /**
@@ -111,11 +117,29 @@ class StudentDashboardController extends AdministratorController
      */
     public function getStudentData()
     {
-        $staff = $this->student->select(['student_id', 'email', 'first_name', 'last_name']);
+        $staff = $this->student->select(['student_id', 'email', 'first_name', 'last_name', 'id']);
         
         return datatables()->of($staff)
-            ->addColumn('name', '{{$first_name}} {{$last_name}}')
+            ->addColumn('name', '<a href="{{ route(\'dashboard.student.show\', $id) }}">{{$first_name}} {{$last_name}}</a>')
+            ->rawColumns(['name'])
             ->removeColumn('first_name', 'last_name')
             ->make();
+    }
+
+    public function assignClassStore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'class_id' => 'required|unique:students_classes,class_id,NULL,NULL,student_id,'. $id,
+        ],[
+            'class_id.unique' => 'The student has already belongs to the selected class.'
+        ]);
+
+        $classId = $request['class_id'];
+        
+        $student = $this->student->findOrFail($id);
+        
+        $student->class()->attach($classId);
+        
+        return redirect()->back()->with('success', 'Teacher has been assigned with subject successfuly!');
     }
 }

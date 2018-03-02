@@ -57,6 +57,19 @@
         </span>
         @endif
     </div>
+    <div class="col-sm-6">
+        <select class="custom-select{{ $errors->has('grade_id') ? ' is-invalid' : '' }}" id="grade_id" name="grade_id" required>
+            <option value="" selected>Choose Grade...</option>
+            @foreach($grades as $grade)
+            <option value="{{ $grade->id }}">{{ $grade->department->name }} - {{ $grade->name }} ({{ $grade->schoolyear }})</option>
+            @endforeach
+        </select>
+        @if ($errors->has('grade_id'))
+        <span class="invalid-feedback">
+            <strong>{{ $errors->first('grade_id') }}</strong>
+        </span>
+        @endif
+    </div>
 </div>
 <div class="card p-2">
     <button type="submit" class="btn btn-primary">Save</button>
