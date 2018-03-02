@@ -30,10 +30,10 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                            <input type="text" class="form-control{{ $errors->has('subject_code') ? ' is-invalid' : '' }}" name="subject_code" id="subject_code" value="{{ old('subject_code') }}" placeholder="Subject Code">
-                            @if ($errors->has('subject_code'))
+                            <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Subject Code">
+                            @if ($errors->has('code'))
                                 <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('subject_code') }}</strong>
+                                    <strong>{{ $errors->first('code') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -64,8 +64,10 @@
                         </div>
                         <div class="card-body">
                         @if($subjects->isNotEmpty())
+                        <p class="font-weight-bold card-title mb-0">Subject Name<span class="float-right">Subject Code</span></p>
+                        <hr class="my-2">
                         @foreach($subjects as $subject)
-                            <p class="card-title">{{ $subject->name }}</p>
+                            <p class="card-title">{{ $subject->name }}<span class="float-right">{{ $subject->code }}</span></p>
                         @endforeach
                         @else
                             <h5 class="card-title">No Subject Availlable</h5>

@@ -40,7 +40,7 @@ class SubjectDashboardController extends StudentDashboardController
     public function store(Request $request)
     {
         $this->validate($request, [
-        	'subject_code' => 'unique:subjects',
+        	'code' => 'required|unique:subjects',
             'name' => 'required|unique:subjects',
         ]);
         
