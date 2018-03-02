@@ -21,6 +21,12 @@ Route::prefix('dashboard')->group(function(){
     // Admin Authentication
     Auth::routes();
 
+    // Department Section
+    Route::prefix('department')->namespace('Dashboard')->group(function(){
+        Route::get('/', 'DepartmentDashboardController@create')->name('dashboard.department.create');
+        Route::post('/', 'DepartmentDashboardController@store')->name('dashboard.department.store');
+    });
+
     // Staff Section
     Route::prefix('staff')->namespace('Dashboard')->group(function(){
         Route::get('/create', 'StaffDashboardController@create')->name('dashboard.staff.create');
