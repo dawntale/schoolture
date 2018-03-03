@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Grade extends Model
 {
@@ -14,7 +15,7 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_id',
+        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_code', 'status',
     ];
 
     /**
@@ -25,7 +26,7 @@ class Grade extends Model
      */
     public function department()
     {
-        return $this->belongsTo('App\Department', 'department_id');
+        return $this->belongsTo('App\Department', 'department_code', 'code');
     }
 
     public function classroom(){
@@ -33,13 +34,19 @@ class Grade extends Model
     }
 
     /**
-     * Get the grade's school year.
+     * Get the grade's academic year.
      *
      * @param  string  $value
      * @return string
      */
     public function getSchoolyearAttribute()
     {
-        return "{$this->schoolyear_start}/{$this->schoolyear_end}";
+        $school_start = Carbon::parse($this->schoolyear_start);
+        $school_start_year = $school_start->year;
+
+        $school_end = Carbon::parse($this->schoolyear_end);
+        $school_end_year = $school_end->year;
+
+        return "{$school_start_year}/{$school_end_year}";
     }
 }

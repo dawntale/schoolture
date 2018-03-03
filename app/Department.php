@@ -11,4 +11,15 @@ class Department extends Model
     protected $fillable = [
     	'code', 'name', 'description', 'status',
     ];
+
+    /**
+     * Get the department's grade.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function grade()
+    {
+        return $this->hasMany('App\Grade', 'department_code', 'code');
+    }
 }

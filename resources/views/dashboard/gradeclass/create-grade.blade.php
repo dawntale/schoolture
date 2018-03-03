@@ -29,15 +29,13 @@
                             <h4 class="my-0 font-weight-normal">New Grade</h4>
                         </div>
                         <div class="card-body">
-                        <div class="mb-3">
-                            <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Grade Code" required>
                             @if ($errors->has('code'))
-                                <span class="invalid-feedback">
+                                <span class="d-block invalid-feedback">
                                     <strong>{{ $errors->first('code') }}</strong>
                                 </span>
                             @endif
-                        </div>
-                        <div class="mb-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
                             <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Grade Name" required>
                             @if ($errors->has('name'))
                                 <span class="invalid-feedback">
@@ -45,26 +43,42 @@
                                 </span>
                             @endif
                         </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control{{ $errors->has('schoolyear_start') ? ' is-invalid' : '' }}" name="schoolyear_start" id="schoolyear_start" value="{{ old('schoolyear_start') }}" placeholder="School Year Start" required>
+                        <div class="form-group">
+                            <label for="schoolyear_start">Academic Year Start</label>
+                            <input type="date" class="form-control{{ $errors->has('schoolyear_start') ? ' is-invalid' : '' }}" name="schoolyear_start" id="schoolyear_start" value="{{ old('schoolyear_start') }}" placeholder="Academic Year Start" required>
                             @if ($errors->has('schoolyear_start'))
                                 <span class="invalid-feedback">
                                     <strong>{{ $errors->first('schoolyear_start') }}</strong>
                                 </span>
                             @endif
                         </div>
-                        <div class="mb-3">
-                            <select class="custom-select{{ $errors->has('department_id') ? ' is-invalid' : '' }}" id="department_id" name="department_id" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
-                                <option value="{{ old('department_id') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
+                        <div class="form-group">
+                            <label for="schoolyear_end">Academic Year End</label>
+                            <input type="date" class="form-control{{ $errors->has('schoolyear_end') ? ' is-invalid' : '' }}" name="schoolyear_end" id="schoolyear_end" value="{{ old('schoolyear_end') }}" placeholder="Academic Year End" required>
+                            @if ($errors->has('schoolyear_end'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('schoolyear_end') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="department_code">Department</label>
+                            <select class="custom-select{{ $errors->has('department_code') ? ' is-invalid' : '' }}" id="department_code" name="department_code" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
+                                <option value="{{ old('department_code') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
                                 @foreach($departments as $department)
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                <option value="{{ $department->code }}">({{ $department->code }}) {{ $department->name }}</option>
                                 @endforeach
                             </select>
-                            @if ($errors->has('department_id'))
+                            @if ($errors->has('department_code'))
                             <span class="invalid-feedback">
-                                <strong>{{ $errors->first('department_id') }}</strong>
+                                <strong>{{ $errors->first('department_code') }}</strong>
                             </span>
                             @endif
+                        </div>
+                        <div class="form-group checkbox">
+                            <label class="mt-sm-2">
+                                <input type="checkbox" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1"> Is Active?
+                            </label>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                         </div>
@@ -77,14 +91,16 @@
                         </div>
                         <div class="card-body">
                         @if($grades->isNotEmpty())
-                        <h5>Current Grades <span class="text-muted">({{ Carbon\Carbon::now()->year }})</span></h5>
-                        @foreach($grades as $grade)
-                            <p class="card-title">{{ $grade->name }} ({{ $grade->schoolyear }})<span class="float-right">{{ $grade->department->name }}</span></p>
+                        <h5>Current Grades <span class="text-muted">({{ $year }})</span></h5>
+                        <p class="card-title font-weight-bold">Grade (Code)<span class="float-right">Department Code</span></p>
+                        <hr class="my-2">
+                        @foreach($grades->where('schoolyear_start', '=', $year) as $grade)
+                            <p class="card-title">{{ $grade->name }} ({{ $grade->code }})<span class="float-right">{{ $grade->department->code }}</span></p>
                         @endforeach
                         <hr>
                         <h5>Last Years Grades</h5>
-                        @foreach($oldGrades as $oGrade)
-                            <p class="card-title">{{ $oGrade->name }} ({{ $oGrade->schoolyear }})<span class="float-right">{{ $grade->department->name }}</span></p>
+                        @foreach($grades->where('schoolyear_start', '<', $year) as $grade)
+                            <p class="card-title">{{ $grade->name }} ({{ $grade->code }})<span class="float-right">{{ $grade->department->code }}</span></p>
                         @endforeach
                         @else
                             <h5 class="card-title">No Grade Availlable</h5>
