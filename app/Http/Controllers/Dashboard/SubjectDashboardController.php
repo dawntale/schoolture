@@ -119,9 +119,9 @@ class SubjectDashboardController extends StudentDashboardController
 
         $id = $request['staff_id'];
         
-        $input = $request->except('_token');
+        $staff = $this->staff->findOrFail($id);
         
-        $this->staff->find($id)->subject()->sync($input);
+        $staff->subject()->attach($request['subject_id']);
         
         return redirect()->back()->with('success', 'Teacher has been assigned with subject successfuly!');
     }

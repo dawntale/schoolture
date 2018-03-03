@@ -43,7 +43,7 @@ class Staff extends Authenticatable
 
     public function position()
     {
-        return $this->belongsTo('App\Position', 'position_id', 'id');
+        return $this->belongsTo('App\Position');
     }
 
     public function subject()
