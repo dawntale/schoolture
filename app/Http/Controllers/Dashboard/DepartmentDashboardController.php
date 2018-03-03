@@ -39,7 +39,7 @@ class DepartmentDashboardController extends AdministratorController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'code' => 'required|unique:departments',
+            'code' => 'required|size:3|unique:departments',
             'name' => 'required|unique:departments',
             'status' => 'in:0,1',
         ]);

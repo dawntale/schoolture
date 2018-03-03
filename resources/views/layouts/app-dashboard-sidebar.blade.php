@@ -5,7 +5,7 @@
                 <a class="nav-link active" href="{{ url(route('admin.dashboard')) }}"><span data-feather="home"></span>Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{{ url(route('dashboard.department.create')) }}"><span data-feather="square-plus"></span>Department</a>
+                <a class="nav-link active" href="{{ url(route('dashboard.department.create')) }}"><span data-feather="globe"></span>Department</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><span data-feather="user"></span>Manage Staff</a>

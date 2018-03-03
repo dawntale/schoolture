@@ -30,15 +30,19 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Department Code">
+                                <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Short Name">
                                 @if ($errors->has('code'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('code') }}</strong>
                                     </span>
+                                @else
+                                    <span class="text-dark d-block valid-feedback">
+                                        <strong>* Ex: SHS, for Senior High School department</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Department Name" required>
+                                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Full Name" required>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -46,7 +50,7 @@
                                 @endif
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" value="{{ old('description') }}" placeholder="Department Description"></textarea>
+                                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="description" value="{{ old('description') }}" placeholder="Description"></textarea>
                                 @if ($errors->has('description'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -69,8 +73,10 @@
                         </div>
                         <div class="card-body">
                         @if($departments->isNotEmpty())
+                            <p class="card-title font-weight-bold">(CODE) Name<span class="float-right">Status</span></p>
+                            <hr class="my-2">
                         @foreach($departments as $department)
-                            <p class="card-title">{{ $department->name }}<span class="float-right">
+                            <p class="card-title">({{ $department->code }}) {{ $department->name }}<span class="float-right">
                             @if($department->status == 1)
                                 Active
                             @else
