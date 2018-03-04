@@ -5,10 +5,18 @@
                 <a class="nav-link active" href="{{ url(route('admin.dashboard')) }}"><span data-feather="home"></span>Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="globe"></span>Manage School</a>
-                <ul class="pl-2 nav flex-column">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#side-school" aria-expanded="false" role="button"><span data-feather="globe"></span>Manage School<span class="float-right" data-feather="chevron-down"></a>
+                <ul data-toggled="#side-school" id="side-school" class="pl-2 list-unstyled flex-column collapse">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url(route('dashboard.department.create')) }}"><span data-feather="user-plus"></span>Department</a>
+                        <a class="nav-link active" href="#" data-toggle="collapse" data-target="#side-department" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Department<span class="float-right" data-feather="chevron-down"></a>
+                        <ul data-toggled="#side-department" id="side-department" class="pl-2 list-unstyled flex-column collapse">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ url(route('dashboard.department.index')) }}"><span data-feather="user-plus"></span>All Department</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ url(route('dashboard.department.create')) }}"><span data-feather="user-plus"></span>Create Department</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url(route('dashboard.grade.index')) }}"><span data-feather="user-plus"></span>Grade</a>
@@ -55,13 +63,22 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Grade & Class</a>
+                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Lesson</a>
                 <ul class="pl-2 nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.grade.index')) }}"><span data-feather="user-plus"></span>Add Grade</a>
+                        <a class="nav-link" href="{{ route('dashboard.lesson.index') }}"><span data-feather="plus-square"></span>All Lesson</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Schedule</a>
+                <ul class="pl-2 nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard.schedule.index') }}"><span data-feather="user-plus"></span>Add Schedule</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.class.index')) }}"><span data-feather="user-plus"></span>Add Class</a>
+                        <a class="nav-link" href="{{ route('dashboard.session.create') }}"><span data-feather="user-plus"></span>Session Block</a>
                     </li>
                 </ul>
             </li>

@@ -21,10 +21,22 @@ Route::prefix('dashboard')->group(function(){
     // Admin Authentication
     Auth::routes();
 
-    // Department Section
-    Route::prefix('department')->namespace('Dashboard')->group(function(){
-        Route::get('/', 'DepartmentDashboardController@create')->name('dashboard.department.create');
-        Route::post('/', 'DepartmentDashboardController@store')->name('dashboard.department.store');
+    // School Setting Section
+    Route::prefix('school')->namespace('Dashboard')->group(function(){
+
+        // School Department Section
+        Route::get('/department', 'DepartmentDashboardController@index')->name('dashboard.department.index');
+        Route::get('/department/create', 'DepartmentDashboardController@create')->name('dashboard.department.create');
+        Route::post('/department/create', 'DepartmentDashboardController@store')->name('dashboard.department.store');
+        Route::get('/department-data', 'DepartmentDashboardController@getDepartmentData')->name('dashboard.department.data');
+
+        // School Grade Section
+        Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');
+        Route::post('/grade', 'GradeDashboardController@store')->name('dashboard.grade.store');
+
+        // School Class Section
+        Route::get('/class', 'ClassDashboardController@index')->name('dashboard.class.index');
+        Route::post('/class', 'ClassDashboardController@store')->name('dashboard.class.store');
     });
 
     // Staff Section
@@ -45,15 +57,6 @@ Route::prefix('dashboard')->group(function(){
         Route::get('/create', 'StudentDashboardController@create')->name('dashboard.student.create');
         Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
         Route::get('/student-data', 'StudentDashboardController@getStudentData')->name('dashboard.student.data');
-
-
-        // Student Grade Section
-        Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');
-        Route::post('/grade', 'GradeDashboardController@store')->name('dashboard.grade.store');
-
-        // Student Class Section
-        Route::get('/class', 'ClassDashboardController@index')->name('dashboard.class.index');
-        Route::post('/class', 'ClassDashboardController@store')->name('dashboard.class.store');
 
         Route::get('/{student}', 'StudentDashboardController@show')->name('dashboard.student.show');
         Route::post('/{student}', 'StudentDashboardController@assignClassStore')->name('dashboard.student.assignclass.store');

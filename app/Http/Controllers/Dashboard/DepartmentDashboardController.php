@@ -14,7 +14,7 @@ class DepartmentDashboardController extends AdministratorController
      */
     public function index()
     {
-        //
+        return view('dashboard.department.index');
     }
 
     /**
@@ -24,10 +24,7 @@ class DepartmentDashboardController extends AdministratorController
      */
     public function create()
     {
-        $departments = $this->department->all();
-
-        return view('dashboard.department.create')
-            ->withDepartments($departments);
+        return view('dashboard.department.create');
     }
 
     /**
@@ -94,5 +91,28 @@ class DepartmentDashboardController extends AdministratorController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Populate all student data to datatables
+     *
+     * @return Collection
+     */
+    public function getDepartmentData()
+    {
+        $department = $this->department->select(['code', 'name', 'description' ,'status', 'id']);
+        
+        return datatables()->of($department)
+            ->editColumn('name', '<a href="#">{{$name}}</a>')
+            ->editColumn('status', '
+            @if($status == 1)
+                <i class="text-success fa fa-check"></i> Active
+            @else
+                <i class="text-danger fa fa-times"></i> In Active
+            @endif
+            ')
+            ->rawColumns(['name', 'status'])
+            ->removeColumn('id')
+            ->make();
     }
 }
