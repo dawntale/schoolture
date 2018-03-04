@@ -15,9 +15,11 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code')->unique();
             $table->string('name');
-            $table->smallinteger('grade_id');
-            $table->tinyinteger('homeroom_teacher');
+            $table->string('grade_code', 12);
+            $table->integer('homeroom_teacher')->nullable();
+            $table->boolean('status')->default(0); // Active / Inactive
             $table->timestamps();
         });
     }

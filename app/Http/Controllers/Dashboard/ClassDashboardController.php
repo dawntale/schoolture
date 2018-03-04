@@ -16,22 +16,7 @@ class ClassDashboardController extends GradeDashboardController
      */
     public function index()
     {
-        // Class collection
-        $classrooms = $this->classroom->all();
-
-        // Teacher collection
-        $teachers = $this->staff->all();
-
-        // Carbon year
-        $year = Carbon::now()->year;
-
-        // Grade collection from current year
-        $grades = $this->grade->where('schoolyear_start', $year)->orderBy('schoolyear_start', 'desc')->get();
-
-        // Grade collection from past year
-        $oldGrades = $this->grade->where('schoolyear_start', '<', $year)->orderBy('schoolyear_start', 'desc')->get();
-
-        return view('dashboard.gradeclass.create-class')->withClassrooms($classrooms)->withGrades($grades)->withOldGrades($oldGrades)->withTeachers($teachers);
+        return view('dashboard.class.index');
     }
 
     /**
@@ -41,7 +26,13 @@ class ClassDashboardController extends GradeDashboardController
      */
     public function create()
     {
-        //
+        // Teacher collection
+        $teachers = $this->staff->positionName('Teacher')->get();
+
+        // Grade collection from current year
+        $grades = $this->grade->where('status', 1)->orderBy('schoolyear_start', 'desc')->get();
+
+        return view('dashboard.class.create')->withGrades($grades)->withTeachers($teachers);
     }
 
     /**
@@ -52,17 +43,16 @@ class ClassDashboardController extends GradeDashboardController
      */
     public function store(Request $request)
     {
+        $request['code'] = $request['grade_code'] . '-' . $request['name'];
+
         $this->validate($request, [
-            'name' => 'required|unique:classes,name,NULL,NULL,grade_id,'. $request['grade_id'],
-            'grade_id' => 'required|integer',
-            'homeroom_teacher' => 'required|integer|unique:classes'
+            'name' => 'required|unique:classes,name,NULL,NULL,grade_code,'. $request['grade_code'],
+            'grade_code' => 'required',
+            'homeroom_teacher' => 'unique:classes|nullable'
         ],
         [
             'name.unique' => 'The class is already exist in this grade.',
-            'grade_id.required' => 'Please select the grade.',
-            'grade_id.integer' => 'Please select the grade.',
-            'homeroom_teacher.required' => 'Please select homeroom teacher.',
-            'homeroom_teacher.integer' => 'Please select homeroom teacher.',
+            'grade_code.required' => 'Please select the grade.',
             'homeroom_teacher.unique' => 'The homeroom teacher has been assigned to other classroom.'
         ]);
         
@@ -116,5 +106,40 @@ class ClassDashboardController extends GradeDashboardController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Populate all class data to datatables
+     *
+     * @return Collection
+     */
+    public function getClassData()
+    {
+        $classes = $this->classroom
+            ->leftJoin('grades', 'classes.grade_code', '=', 'grades.code')
+            ->leftJoin('staffs', 'classes.homeroom_teacher', '=', 'staffs.id')
+            ->leftJoin('departments', 'grades.department_code', '=', 'departments.code')
+            ->select(['classes.code as code', 'classes.name as name' ,'classes.status as status', 'classes.homeroom_teacher as homeroom_teacher', 'grades.name as gname', 'grades.code as gcode', 'departments.code as dcode', 'staffs.first_name as sfname', 'staffs.last_name as slname', 'classes.id as id']);
+        
+        return datatables()->of($classes)
+            ->editColumn('name', '<a href="#">{{$name}}</a>')
+            ->editColumn('status', '
+            @if($status == 1)
+                <i class="text-success fa fa-check"></i> Active
+            @else
+                <i class="text-danger fa fa-times"></i> In Active
+            @endif
+            ')
+            ->editColumn('gname', '{{ $gname }} ({{ $gcode }})')
+            ->addColumn('sname', function($data){
+                if($data->sfname !== null && $data->slname !== null){
+                    return $data->sfname . ' ' . $data->slname;
+                } else {
+                    return '<i class="text-danger fa fa-times"></i> N/A';
+                }
+            })
+            ->rawColumns(['name', 'status', 'sname'])
+            ->removeColumn('id', 'gcode', 'sfname', 'slname')
+            ->make();
     }
 }

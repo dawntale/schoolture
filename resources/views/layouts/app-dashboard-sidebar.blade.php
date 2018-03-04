@@ -30,7 +30,15 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.class.index')) }}"><span data-feather="user-plus"></span>Class</a>
+                        <a class="nav-link active" href="#" data-toggle="collapse" data-target="#side-class" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Class<span class="float-right" data-feather="chevron-down"></a>
+                        <ul id="side-class" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-school">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url(route('dashboard.class.index')) }}"><span data-feather="user-plus"></span>All Class</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ url(route('dashboard.class.create')) }}"><span data-feather="user-plus"></span>Create Class</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
