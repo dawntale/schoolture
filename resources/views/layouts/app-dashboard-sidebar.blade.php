@@ -1,4 +1,4 @@
-<nav class="col-md-3 d-none d-md-block bg-light sidebar border-right">
+<nav class="col-md-3 d-none d-md-block bg-light sidebar border-right p-0 py-3">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -6,10 +6,10 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#side-school" aria-expanded="false" role="button"><span data-feather="globe"></span>Manage School<span class="float-right" data-feather="chevron-down"></a>
-                <ul data-toggled="#side-school" id="side-school" class="pl-2 list-unstyled flex-column collapse">
+                <ul data-toggled="#side-school" id="side-school" class="ml-4 list-unstyled flex-column collapse border-left">
                     <li class="nav-item">
                         <a class="nav-link active" href="#" data-toggle="collapse" data-target="#side-department" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Department<span class="float-right" data-feather="chevron-down"></a>
-                        <ul data-toggled="#side-department" id="side-department" class="pl-2 list-unstyled flex-column collapse">
+                        <ul id="side-department" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-school">
                             <li class="nav-item">
                                 <a class="nav-link active" href="{{ url(route('dashboard.department.index')) }}"><span data-feather="user-plus"></span>All Department</a>
                             </li>
@@ -19,7 +19,15 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.grade.index')) }}"><span data-feather="user-plus"></span>Grade</a>
+                        <a class="nav-link active" href="#" data-toggle="collapse" data-target="#side-grade" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Grade<span class="float-right" data-feather="chevron-down"></a>
+                        <ul id="side-grade" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-school">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url(route('dashboard.grade.index')) }}"><span data-feather="user-plus"></span>All Grade</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ url(route('dashboard.grade.create')) }}"><span data-feather="user-plus"></span>Create Grade</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url(route('dashboard.class.index')) }}"><span data-feather="user-plus"></span>Class</a>
@@ -59,26 +67,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.subject.teacher') }}"><span data-feather="plus-square"></span>Assign Teacher</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Lesson</a>
-                <ul class="pl-2 nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.lesson.index') }}"><span data-feather="plus-square"></span>All Lesson</a>
-                    </li>
-                </ul>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Schedule</a>
-                <ul class="pl-2 nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.schedule.index') }}"><span data-feather="user-plus"></span>Add Schedule</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.session.create') }}"><span data-feather="user-plus"></span>Session Block</a>
                     </li>
                 </ul>
             </li>

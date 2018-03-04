@@ -32,7 +32,9 @@ Route::prefix('dashboard')->group(function(){
 
         // School Grade Section
         Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');
-        Route::post('/grade', 'GradeDashboardController@store')->name('dashboard.grade.store');
+        Route::get('/grade/create', 'GradeDashboardController@create')->name('dashboard.grade.create');
+        Route::post('/grade/create', 'GradeDashboardController@store')->name('dashboard.grade.store');
+        Route::get('/grade-data', 'GradeDashboardController@getGradeData')->name('dashboard.grade.data');
 
         // School Class Section
         Route::get('/class', 'ClassDashboardController@index')->name('dashboard.class.index');

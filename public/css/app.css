@@ -12,3 +12,10 @@
  	margin-right: 8px;
  }
 
+.sidebar .nav-item a:hover {
+	background-color: #dddddd;
+}
+
+.sidebar .nav-link {
+	padding: .5rem .5rem .5rem 1rem;
+}

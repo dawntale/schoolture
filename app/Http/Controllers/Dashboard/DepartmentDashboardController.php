@@ -94,7 +94,7 @@ class DepartmentDashboardController extends AdministratorController
     }
 
     /**
-     * Populate all student data to datatables
+     * Populate all department data to datatables
      *
      * @return Collection
      */

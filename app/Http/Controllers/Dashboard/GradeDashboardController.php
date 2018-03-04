@@ -16,19 +16,7 @@ class GradeDashboardController extends AdministratorController
      */
     public function index()
     {
-        // Current year
-        $year = Carbon::now()->year;
-
-        // Department collection
-        $departments = $this->department->all();
-
-        // Grade collection
-        $grades = $this->grade->orderBy('created_at', 'asc')->get();
-
-        return view('dashboard.gradeclass.create-grade')
-            ->withDepartments($departments)
-            ->withGrades($grades)
-            ->withYear($year);
+        return view('dashboard.grade.index');
     }
 
     /**
@@ -38,7 +26,11 @@ class GradeDashboardController extends AdministratorController
      */
     public function create()
     {
-        //
+        // Department collection where status is active
+        $departments = $this->department->where('status', 1)->get();
+
+        return view('dashboard.grade.create')
+            ->withDepartments($departments);
     }
 
     /**
@@ -117,5 +109,32 @@ class GradeDashboardController extends AdministratorController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Populate all grade data to datatables
+     *
+     * @return Collection
+     */
+    public function getGradeData()
+    {
+        $grades = $this->grade
+            ->leftJoin('departments', 'grades.department_code', '=', 'departments.code')
+            ->select(['grades.code as code', 'grades.name as name' ,'grades.status as status', 'grades.schoolyear_start as schoolyear_start', 'grades.schoolyear_end as schoolyear_end', 'departments.name as dname', 'departments.code as dcode','grades.id as id']);
+        
+        return datatables()->of($grades)
+            ->editColumn('name', '<a href="#">{{$name}}</a>')
+            ->editColumn('status', '
+            @if($status == 1)
+                <i class="text-success fa fa-check"></i> Active
+            @else
+                <i class="text-danger fa fa-times"></i> In Active
+            @endif
+            ')
+            ->addColumn('academic_year', '<span title="{{ $schoolyear_start }}/{{ $schoolyear_end }}">{{ Carbon\Carbon::parse($schoolyear_start)->year }}/{{ Carbon\Carbon::parse($schoolyear_end)->year }}</span>')
+            ->editColumn('dname', '{{$dname}} ({{$dcode}})')
+            ->rawColumns(['name', 'status', 'academic_year'])
+            ->removeColumn('id')
+            ->make();
     }
 }
