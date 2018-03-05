@@ -19,3 +19,20 @@
 .sidebar .nav-link {
 	padding: .5rem .5rem .5rem 1rem;
 }
+
+.action-row {
+    color: #ddd;
+    opacity: 0;
+}
+
+.action-row a:hover {
+    text-decoration: none;
+}
+
+.action-row a:hover, .carousel-indicators>li, button {
+    cursor: pointer;
+}
+
+tr:hover td .action-row {
+    opacity: 1;
+}

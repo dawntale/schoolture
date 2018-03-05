@@ -103,7 +103,8 @@ class DepartmentDashboardController extends AdministratorController
         $department = $this->department->select(['code', 'name', 'description' ,'status', 'id']);
         
         return datatables()->of($department)
-            ->editColumn('name', '<a href="#">{{$name}}</a>')
+            ->editColumn('name', '<a href="#">{{$name}}</a>
+                 {!! Builder::action("department", $id) !!} ')
             ->editColumn('status', '
             @if($status == 1)
                 <i class="text-success fa fa-check"></i> Active
