@@ -28,9 +28,11 @@ class StaffDashboardController extends AdministratorController
      */
     public function create()
     {        
+        $staff = new $this->staff;
+
         $positions = $this->position->all();
         
-        return view('dashboard.staff.create')->withPositions($positions);
+        return view('dashboard.staff.create')->withStaff($staff)->withPositions($positions);
     }
 
     /**
@@ -78,7 +80,11 @@ class StaffDashboardController extends AdministratorController
      */
     public function edit($id)
     {
-        //
+        $positions = $this->position->all();
+
+        $staff = $this->staff->whereStaffId($id)->firstOrFail();
+
+        return view('dashboard.staff.edit')->withStaff($staff)->withPositions($positions);
     }
 
     /**
@@ -90,7 +96,21 @@ class StaffDashboardController extends AdministratorController
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+            'staff_id' => 'required|unique:staffs,staff_id,'.$id,
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:staffs,email,'.$id,
+            'birthdate' => 'required',
+            'position_id' => 'required|in:1,2,3'
+        ]);
+        
+        $input = $request->all();
+        
+        $this->staff->findOrFail($id)->update($input);
+        
+        return redirect()->back()->with('success', 'Staff has been updated!');
     }
 
     /**
@@ -111,11 +131,15 @@ class StaffDashboardController extends AdministratorController
      */
     public function getStaffData()
     {
-        $staff = $this->staff->leftJoin('staff_positions', 'staffs.position_id', '=', 'staff_positions.id')->select(['staff_id', 'email', 'staff_positions.name as position', 'first_name', 'last_name']);
+        $staff = $this->staff
+            ->leftJoin('staff_positions', 'staffs.position_id', '=', 'staff_positions.id')
+            ->select(['staff_id', 'email', 'staff_positions.name as position', 'first_name', 'last_name']);
         
         return datatables()->of($staff)
-            ->addColumn('name', '{{$first_name}} {{$last_name}}')
+            ->addColumn('name', '{{$first_name}} {{$last_name}}
+               {!! Builder::action("staff", $staff_id) !!}')
             ->addColumn('position', '{{$position}}')
+            ->rawColumns(['name'])
             ->removeColumn('first_name', 'last_name')
             ->make();
     }

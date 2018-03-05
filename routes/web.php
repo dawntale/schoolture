@@ -22,17 +22,17 @@ Route::prefix('dashboard')->group(function(){
     Auth::routes();
 
     // School Setting Section
-    Route::group(['prefix' => 'school', 'as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+    Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
 
         // School Department Section
         Route::resource('department', 'DepartmentDashboardController', 
             ['only' => ['index', 'create', 'store', 'edit', 'update']]);
-        Route::get('department/data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
+        Route::get('department-data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
 
         // School Grade Section
         Route::resource('grade', 'GradeDashboardController', 
             ['only' => ['index', 'create', 'store']]);
-        Route::get('grade/data', 'GradeDashboardController@getGradeData')->name('grade.data');
+        Route::get('grade-data', 'GradeDashboardController@getGradeData')->name('grade.data');
 
         // School Class Section
         Route::resource('class', 'ClassDashboardController', 
@@ -41,16 +41,14 @@ Route::prefix('dashboard')->group(function(){
     });
 
     // Staff Section
-    Route::prefix('staff')->namespace('Dashboard')->group(function(){
-        Route::get('/create', 'StaffDashboardController@create')->name('dashboard.staff.create');
-        Route::post('/create', 'StaffDashboardController@store')->name('dashboard.staff.store');
-        Route::get('/staff-data', 'StaffDashboardController@getStaffData')->name('dashboard.staff.data');
+    Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        Route::resource('staff', 'StaffDashboardController', 
+            ['only' => ['index', 'create', 'store', 'edit', 'update']]);
+        Route::get('/staff-data', 'StaffDashboardController@getStaffData')->name('staff.data');
         
         // Staff Position Section
-        Route::get('/position', 'PositionDashboardController@index')->name('dashboard.position.index');
-        Route::post('/position', 'PositionDashboardController@store')->name('dashboard.position.store');
-        
-        Route::get('/', 'StaffDashboardController@index')->name('dashboard.staff');
+        Route::resource('position', 'PositionDashboardController', 
+            ['only' => ['index', 'create', 'store', 'edit', 'update']]);
     });
     
     // Student Section

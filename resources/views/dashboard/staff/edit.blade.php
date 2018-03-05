@@ -11,7 +11,7 @@
         
         <main role="main" class="col-md-9 ml-sm-auto pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Create Staff</h1><a class="btn btn-primary" href="{{ route('dashboard.staff.index') }}">All Staff</a>
+                <h1 class="h2">Edit Staff ({{ $staff->name }})</h1>
             </div>
             @if(session('success'))
             <div class="alert alert-success alert-dismissible">
@@ -22,8 +22,8 @@
             </div>
             @endif
 
-            <form id="staff" method="POST" action="{{ route('dashboard.staff.store') }}">
-                @csrf
+            <form id="staff" method="POST" action="{{ route('dashboard.staff.update', $staff->id) }}">
+                {{ method_field('PATCH') }}
                 @include('dashboard.staff.partials.form')
             </form>
         </main>
