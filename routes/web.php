@@ -22,23 +22,22 @@ Route::prefix('dashboard')->group(function(){
     Auth::routes();
 
     // School Setting Section
-    Route::prefix('school')->namespace('Dashboard')->group(function(){
+    Route::group(['prefix' => 'school', 'as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
 
         // School Department Section
-        Route::get('/department', 'DepartmentDashboardController@index')->name('dashboard.department.index');
-        Route::get('/department/create', 'DepartmentDashboardController@create')->name('dashboard.department.create');
-        Route::post('/department/create', 'DepartmentDashboardController@store')->name('dashboard.department.store');
-        Route::get('/department-data', 'DepartmentDashboardController@getDepartmentData')->name('dashboard.department.data');
+        Route::resource('department', 'DepartmentDashboardController', 
+            ['only' => ['index', 'create', 'store', 'edit', 'update']]);
+        Route::get('department/data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
 
         // School Grade Section
-        Route::get('/grade', 'GradeDashboardController@index')->name('dashboard.grade.index');
-        Route::get('/grade/create', 'GradeDashboardController@create')->name('dashboard.grade.create');
-        Route::post('/grade/create', 'GradeDashboardController@store')->name('dashboard.grade.store');
-        Route::get('/grade-data', 'GradeDashboardController@getGradeData')->name('dashboard.grade.data');
+        Route::resource('grade', 'GradeDashboardController', 
+            ['only' => ['index', 'create', 'store']]);
+        Route::get('grade/data', 'GradeDashboardController@getGradeData')->name('grade.data');
 
         // School Class Section
-        Route::get('/class', 'ClassDashboardController@index')->name('dashboard.class.index');
-        Route::post('/class', 'ClassDashboardController@store')->name('dashboard.class.store');
+        Route::resource('class', 'ClassDashboardController', 
+            ['only' => ['index', 'create', 'store']]);
+        Route::get('class/data', 'ClassDashboardController@getClassData')->name('class.data');
     });
 
     // Staff Section

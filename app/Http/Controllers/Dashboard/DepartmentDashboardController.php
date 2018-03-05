@@ -24,7 +24,10 @@ class DepartmentDashboardController extends AdministratorController
      */
     public function create()
     {
-        return view('dashboard.department.create');
+        $department = new $this->department;
+
+        return view('dashboard.department.create')
+            ->withDepartment($department);
     }
 
     /**
@@ -67,7 +70,10 @@ class DepartmentDashboardController extends AdministratorController
      */
     public function edit($id)
     {
-        //
+        $department = $this->department->findOrFail($id);
+
+        return view('dashboard.department.edit')
+            ->withDepartment($department);
     }
 
     /**
@@ -79,7 +85,21 @@ class DepartmentDashboardController extends AdministratorController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'code' => 'required|size:3|unique:departments,code,'.$id,
+            'name' => 'required|unique:departments,name,'.$id,
+            'status' => 'in:0,1',
+        ]);
+
+        if(!$request['status']){
+            $request['status'] = 0;
+        }
+        
+        $input = $request->all();
+        
+        $this->department->findOrFail($id)->update($input);
+        
+        return redirect()->back()->with('success', 'New Department has been created!');
     }
 
     /**
