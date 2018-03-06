@@ -52,18 +52,15 @@ Route::prefix('dashboard')->group(function(){
     });
     
     // Student Section
-    Route::prefix('student')->namespace('Dashboard')->group(function(){
-        Route::get('/create', 'StudentDashboardController@create')->name('dashboard.student.create');
-        Route::post('/create', 'StudentDashboardController@store')->name('dashboard.student.store');
-        Route::get('/student-data', 'StudentDashboardController@getStudentData')->name('dashboard.student.data');
-
-        Route::get('/{student}', 'StudentDashboardController@show')->name('dashboard.student.show');
-        Route::post('/{student}', 'StudentDashboardController@assignClassStore')->name('dashboard.student.assignclass.store');
-        Route::get('/', 'StudentDashboardController@index')->name('dashboard.student');
+    Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        Route::get('/student/student-data', 'StudentDashboardController@getStudentData')->name('student.data');
+        Route::post('/student/{student}/class', 'StudentDashboardController@assignClassStore')->name('student.assignclass.store');
+        Route::resource('student', 'StudentDashboardController', 
+            ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
     });
 
     // Subject Section
-     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+    Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
         Route::resource('subject', 'SubjectDashboardController', 
             ['only' => ['create', 'store', 'edit', 'update']]);
 

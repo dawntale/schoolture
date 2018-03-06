@@ -49,10 +49,10 @@
                 <a class="nav-link {{ Request::is('*staff*') || Request::is('*position*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-staff" aria-expanded="false" role="button"><span data-feather="user"></span>Manage Staff & Position<span class="float-right" data-feather="chevron-down"></span></a>
                 <ul data-toggled="#side-staff" id="side-staff" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-menu">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*staff*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-staff2" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Staff<span class="float-right" data-feather="chevron-down"></span></a>
+                        <a class="nav-link {{ Request::is('*staff*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-staff2" aria-expanded="false" role="button"><span data-feather="user"></span>Staff<span class="float-right" data-feather="chevron-down"></span></a>
                         <ul id="side-staff2" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-staff">
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('*staff') ? 'active' : '' }}" href="{{ url(route('dashboard.staff.index')) }}"><span data-feather="user-plus"></span>All Staff</a>
+                                <a class="nav-link {{ Request::is('*staff') ? 'active' : '' }}" href="{{ url(route('dashboard.staff.index')) }}"><span data-feather="users"></span>All Staff</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('*staff/create') ? 'active' : '' }}" href="{{ url(route('dashboard.staff.create')) }}"><span data-feather="user-plus"></span>Create Staff</a>
@@ -60,18 +60,19 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*position*') ? 'active' : '' }}" href="#" data-toggle="collapse" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Add Position</a>
+                        <a class="nav-link {{ Request::is('*position*') ? 'active' : '' }}" href="{{ route('dashboard.position.index') }}"><span data-feather="navigation"></span>Add Position</a>
                     </li>
                 </ul>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="#"><span data-feather="user"></span>Manage Student</a>
-                <ul class="pl-2 nav flex-column">
+                <a class="nav-link {{ Request::is('*student*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-student" aria-expanded="false" role="button"><span data-feather="user"></span>Manage Student<span class="float-right" data-feather="chevron-down"></span></a>
+                <ul data-toggled="#side-student" id="side-student" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.student')) }}"><span data-feather="users"></span>All Students</a>
+                        <a class="nav-link {{ Request::is('*student') ? 'active' : '' }}" href="{{ route('dashboard.student.index') }}"><span data-feather="navigation"></span>All Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url(route('dashboard.student.create')) }}"><span data-feather="user-plus"></span>Add New</a>
+                        <a class="nav-link {{ Request::is('*student/create') ? 'active' : '' }}" href="{{ route('dashboard.student.create') }}"><span data-feather="navigation"></span>Create Student</a>
                     </li>
                 </ul>
             </li>
