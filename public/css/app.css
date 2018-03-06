@@ -36,3 +36,7 @@
 tr:hover td .action-row {
     opacity: 1;
 }
+
+.sidebar li .active {
+	background-color: #eeeeee;
+}
