@@ -137,12 +137,16 @@ class SubjectDashboardController extends StudentDashboardController
         // Scope staff from position name
         $teachers = $this->staff->positionName('Teacher')->get();
 
+        // Department Collection
+        $departments = $this->department->where('status', 1)->get();
+
         // Subject Collection
         $subjects = $this->subject->all();
         
         return view('dashboard.subject.assign-teacher')
             ->withSubjects($subjects)
-            ->withTeachers($teachers);
+            ->withTeachers($teachers)
+            ->withDepartments($departments);
     }
 
     public function teacherStore(Request $request)
