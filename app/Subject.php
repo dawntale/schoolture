@@ -14,7 +14,7 @@ class Subject extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'description'
+        'code', 'abbreviation', 'name', 'description', 'department_id',
     ];
 
     public function staff()

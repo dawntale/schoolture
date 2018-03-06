@@ -11,7 +11,7 @@
         
         <main role="main" class="col-md-9 ml-sm-auto pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Create Subject</h1>
+                <h1 class="h2">Edit Subject ({{ $subject->code }})</h1>
             </div>
             @if(session('success'))
             <div class="alert alert-success alert-dismissible">
@@ -21,8 +21,9 @@
                 {{ session('success') }}
             </div>
             @endif
-            <form id="subject" method="POST" action="{{ route('dashboard.subject.store') }}">
+            <form id="subject" method="POST" action="{{ route('dashboard.subject.update', $subject->id) }}">
                 @csrf
+                {{ method_field('PATCH') }}
                 @include('dashboard.subject.partials.form')
             </form>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 mt-4 border-bottom">

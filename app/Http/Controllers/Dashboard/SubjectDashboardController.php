@@ -33,7 +33,7 @@ class SubjectDashboardController extends StudentDashboardController
 
         // Subject Collection
         $subColls = $this->subject->orderBy('created_at', 'desc')->get();
-        
+
         return view('dashboard.subject.create')
             ->withSubject($subject)
             ->withDepartments($departments)
@@ -55,7 +55,9 @@ class SubjectDashboardController extends StudentDashboardController
         $this->validate($request, [
         	'code' => 'required|unique:subjects',
             'abbreviation' => 'required|size:3',
-            'name' => 'required|unique:subjects',
+            'name' => 'required',
+        ],[
+            'code.unique' => 'The subject has already added in this department.'
         ]);
         
         $input = $request->all();
@@ -84,7 +86,19 @@ class SubjectDashboardController extends StudentDashboardController
      */
     public function edit($id)
     {
-        //
+        // Subject Model
+        $subject = $this->subject->findOrFail($id);
+
+        // Department Collection
+        $departments = $this->department->where('status', 1)->get();
+
+        // Subject Collection
+        $subColls = $this->subject->orderBy('created_at', 'desc')->get();
+        
+        return view('dashboard.subject.edit')
+            ->withSubject($subject)
+            ->withDepartments($departments)
+            ->withSubColls($subColls);
     }
 
     /**
@@ -96,7 +110,15 @@ class SubjectDashboardController extends StudentDashboardController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        
+        $input = $request->except('department_id', 'code', 'abbreviation');
+        
+        $this->subject->findOrFail($id)->update($input);
+        
+        return redirect()->back()->with('success', 'Subject has been updated!');
     }
 
     /**
