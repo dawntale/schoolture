@@ -33,7 +33,8 @@
     cursor: pointer;
 }
 
-tr:hover td .action-row {
+tr:hover td .action-row,
+div:hover>.action-row {
     opacity: 1;
 }
 

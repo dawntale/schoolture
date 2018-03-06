@@ -11,7 +11,7 @@
         
         <main role="main" class="col-md-9 ml-sm-auto pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Manage Subject</h1>
+                <h1 class="h2">Create Subject</h1>
             </div>
             @if(session('success'))
             <div class="alert alert-success alert-dismissible">
@@ -21,58 +21,85 @@
                 {{ session('success') }}
             </div>
             @endif
-            <div class="row">
-                <form id="subject" class="col-md-6" method="POST" action="{{ route('dashboard.subject.store') }}">
-                    @csrf
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">New Subject</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                            <input type="text" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" id="code" value="{{ old('code') }}" placeholder="Subject Code">
-                            @if ($errors->has('code'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('code') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Subject Name" required>
-                            @if ($errors->has('name'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <div class="mb-3">
-                            <textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" value="{{ old('description') }}" placeholder="Subject Description"></textarea>
-                            @if ($errors->has('description'))
-                                <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('description') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4 class="my-0 font-weight-normal">Availlable Subject</h4>
-                        </div>
-                        <div class="card-body">
-                        @if($subjects->isNotEmpty())
-                        <p class="font-weight-bold card-title mb-0">Subject Name<span class="float-right">Subject Code</span></p>
-                        <hr class="my-2">
-                        @foreach($subjects as $subject)
-                            <p class="card-title">{{ $subject->name }}<span class="float-right">{{ $subject->code }}</span></p>
+            @if($subject)
+            <form id="subject" method="POST" action="{{ route('dashboard.subject.store') }}">
+                @csrf
+            @else
+            <form id="subject" method="POST" action="{{ route('dashboard.subject.update', $subject->id) }}">
+                @csrf
+                {{ method_field('PATCH') }}
+            @endif
+                <div class="mb-3">
+                    <select class="custom-select{{ $errors->has('department_id') ? ' is-invalid' : '' }}" id="department_id" name="department_id" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
+                        <option value="" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
+                        @foreach($departments as $department)
+                        <option value="{{ $department->id }}" {{ (old('department_id', 
+                            $department->department_id ? $department->department_id : null) == $department->id) ? 'selected' : '' }}>{{ $department->name }} ({{ $department->code }})</option>
                         @endforeach
-                        @else
-                            <h5 class="card-title">No Subject Availlable</h5>
-                        @endif
+                    </select>
+                    @if ($errors->has('department_id'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('department_id') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Subject Name" required>
+                    @if ($errors->has('name'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control{{ $errors->has('abbreviation') ? ' is-invalid' : '' }}" name="abbreviation" id="abbreviation" value="{{ old('abbreviation') }}" placeholder="Subject Abbreviation">
+                    @if ($errors->has('abbreviation'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('abbreviation') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" placeholder="Subject Description">{{ old('description') }}</textarea>
+                    @if ($errors->has('description'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('description') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="card p-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 mt-4 border-bottom">
+                <h1 class="h2">All Subject</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        @foreach($departments as $key => $department)
+                        <a class="list-group-item list-group-item-action {{ $key == 0 ? 'active' : '' }}" id="list-home-list" data-toggle="list" href="#list-{{ $department->code }}" role="tab" aria-controls="{{ $department->code }}">{{ $department->code }}</a>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content" id="nav-tabContent">
+                        @foreach($departments as $key => $department)
+                        <div class="tab-pane fade show {{ $key == 0 ? 'active' : '' }}" id="list-{{ $department->code }}" role="tabpanel" aria-labelledby="list-{{ $department->code }}-list">
+                            @if($subColls->where('department_id', $department->id)->isNotEmpty())
+                            <h5 class="card-title mb-0">Subject Name<span class="float-right">Subject Code</span></h5>
+                            <hr class="my-2">
+                            @foreach($subColls->where('department_id', $department->id) as $subColl)
+                            <div class="mb-2">
+                                <p class="card-title mb-0">{{ $subColl->name }}<span class="float-right">{{ $subColl->code }}</span></p>
+                                {!! Builder::action('subject', $subColl->id) !!}
+                            </div>
+                            @endforeach
+                            @else
+                            <h5 class="card-title">No Subject in Department {{ $department->code }}</h5>
+                            @endif
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

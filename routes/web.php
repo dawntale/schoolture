@@ -27,24 +27,24 @@ Route::prefix('dashboard')->group(function(){
         // School Department Section
         Route::resource('department', 'DepartmentDashboardController', 
             ['only' => ['index', 'create', 'store', 'edit', 'update']]);
-        Route::get('department-data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
+        Route::get('department/department-data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
 
         // School Grade Section
         Route::resource('grade', 'GradeDashboardController', 
             ['only' => ['index', 'create', 'store']]);
-        Route::get('grade-data', 'GradeDashboardController@getGradeData')->name('grade.data');
+        Route::get('grade/grade-data', 'GradeDashboardController@getGradeData')->name('grade.data');
 
         // School Class Section
         Route::resource('class', 'ClassDashboardController', 
             ['only' => ['index', 'create', 'store']]);
-        Route::get('class/data', 'ClassDashboardController@getClassData')->name('class.data');
+        Route::get('class/class-data', 'ClassDashboardController@getClassData')->name('class.data');
     });
 
     // Staff Section
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
         Route::resource('staff', 'StaffDashboardController', 
             ['only' => ['index', 'create', 'store', 'edit', 'update']]);
-        Route::get('/staff-data', 'StaffDashboardController@getStaffData')->name('staff.data');
+        Route::get('staff/staff-data', 'StaffDashboardController@getStaffData')->name('staff.data');
         
         // Staff Position Section
         Route::resource('position', 'PositionDashboardController', 
@@ -63,12 +63,14 @@ Route::prefix('dashboard')->group(function(){
     });
 
     // Subject Section
-    Route::prefix('subject')->namespace('Dashboard')->group(function(){
-        Route::get('/create', 'SubjectDashboardController@create')->name('dashboard.subject.create');
-        Route::post('/create', 'SubjectDashboardController@store')->name('dashboard.subject.store');
-        Route::get('/assign-teacher', 'SubjectDashboardController@teacher')->name('dashboard.subject.teacher');
-        Route::post('/assign-teacher', 'SubjectDashboardController@teacherStore')->name('dashboard.subject.teacher.store');
+     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        Route::resource('subject', 'SubjectDashboardController', 
+            ['only' => ['create', 'store', 'edit']]);
+
+        Route::get('subject/assign-teacher', 'SubjectDashboardController@teacher')->name('subject.teacher');
+        Route::post('subject/assign-teacher', 'SubjectDashboardController@teacherStore')->name('subject.teacher.store');
     });
+
     
     // Dashboard Home
     Route::get('/', 'AdministratorController@index')->name('admin.dashboard');

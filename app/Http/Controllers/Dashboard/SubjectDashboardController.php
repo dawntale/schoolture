@@ -25,10 +25,19 @@ class SubjectDashboardController extends StudentDashboardController
      */
     public function create()
     {
+        // Subject Model
+        $subject = new $this->subject;
+
+        // Department Collection
+        $departments = $this->department->where('status', 1)->get();
+
         // Subject Collection
-        $subjects = $this->subject->orderBy('created_at', 'desc')->get();
+        $subColls = $this->subject->orderBy('created_at', 'desc')->get();
         
-        return view('dashboard.subject.create')->withSubjects($subjects);
+        return view('dashboard.subject.create')
+            ->withSubject($subject)
+            ->withDepartments($departments)
+            ->withSubColls($subColls);
     }
 
     /**
@@ -39,8 +48,13 @@ class SubjectDashboardController extends StudentDashboardController
      */
     public function store(Request $request)
     {
+        $department = $this->department->findOrFail($request['department_id']);
+
+        $request['code'] = $department->code . '-' . $request['abbreviation'];
+
         $this->validate($request, [
         	'code' => 'required|unique:subjects',
+            'abbreviation' => 'required|size:3',
             'name' => 'required|unique:subjects',
         ]);
         
