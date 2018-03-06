@@ -69,10 +69,10 @@
                 <a class="nav-link {{ Request::is('*student*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-student" aria-expanded="false" role="button"><span data-feather="user"></span>Manage Student<span class="float-right" data-feather="chevron-down"></span></a>
                 <ul data-toggled="#side-student" id="side-student" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-menu">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*student') ? 'active' : '' }}" href="{{ route('dashboard.student.index') }}"><span data-feather="navigation"></span>All Student</a>
+                        <a class="nav-link {{ Request::is('*student') ? 'active' : '' }}" href="{{ route('dashboard.student.index') }}"><span data-feather="users"></span>All Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*student/create') ? 'active' : '' }}" href="{{ route('dashboard.student.create') }}"><span data-feather="navigation"></span>Create Student</a>
+                        <a class="nav-link {{ Request::is('*student/create') ? 'active' : '' }}" href="{{ route('dashboard.student.create') }}"><span data-feather="user-plus"></span>Create Student</a>
                     </li>
                 </ul>
             </li>
