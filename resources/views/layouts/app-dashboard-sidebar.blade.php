@@ -60,15 +60,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*position*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-position" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Position<span class="float-right" data-feather="chevron-down"></span></a>
-                        <ul id="side-position" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-staff">
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('*position') ? 'active' : '' }}" href="{{ url(route('dashboard.position.index')) }}"><span data-feather="user-plus"></span>All Position</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ Request::is('*position/create') ? 'active' : '' }}" href="{{ url(route('dashboard.position.create')) }}"><span data-feather="user-plus"></span>Create Position</a>
-                            </li>
-                        </ul>
+                        <a class="nav-link {{ Request::is('*position*') ? 'active' : '' }}" href="#" data-toggle="collapse" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Add Position</a>
                     </li>
                 </ul>
             </li>
