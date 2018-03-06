@@ -32,15 +32,15 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <select class="custom-select{{ $errors->has('grade_code') ? ' is-invalid' : '' }}" id="grade_code" name="grade_code" required {{ $grades->isEmpty() ? ' disabled' : '' }}>
-                        <option value="{{ old('grade_code') }}" selected>{{ $grades->isEmpty() ? ' Create Grade First' : 'Choose Grade...' }}</option>
+                    <select class="custom-select{{ $errors->has('grade_id') ? ' is-invalid' : '' }}" id="grade_id" name="grade_id" required {{ $grades->isEmpty() ? ' disabled' : '' }}>
+                        <option value="{{ old('grade_id') }}" selected>{{ $grades->isEmpty() ? ' Create Grade First' : 'Choose Grade...' }}</option>
                         @foreach($grades as $grade)
-                        <option value="{{ $grade->code }}">Grade {{ $grade->name }} ({{ $grade->schoolyear }})</option>
+                        <option value="{{ $grade->id }}">Grade {{ $grade->name }} ({{ $grade->schoolyear }})</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('grade_code'))
+                    @if ($errors->has('grade_id'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('grade_code') }}</strong>
+                        <strong>{{ $errors->first('grade_id') }}</strong>
                     </span>
                     @endif
                 </div>
@@ -61,10 +61,9 @@
                     </span>
                     @endif
                 </div>
-                <div class="form-group checkbox">
-                    <label class="mt-sm-2">
-                        <input type="checkbox" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1"> Is Active?
-                    </label>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1">
+                    <label class="custom-control-label" for="status">Is Active?</label>
                 </div>
                 <div class="card p-2">
                     <button type="submit" class="btn btn-primary">Save</button>

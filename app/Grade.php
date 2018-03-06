@@ -15,7 +15,7 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_code', 'status',
+        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_id', 'status',
     ];
 
     /**
@@ -26,7 +26,7 @@ class Grade extends Model
      */
     public function department()
     {
-        return $this->belongsTo('App\Department', 'department_code', 'code');
+        return $this->belongsTo('App\Department');
     }
 
     public function classroom(){

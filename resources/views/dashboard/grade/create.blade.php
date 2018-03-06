@@ -56,23 +56,22 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="department_code">Department</label>
-                    <select class="custom-select{{ $errors->has('department_code') ? ' is-invalid' : '' }}" id="department_code" name="department_code" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
-                        <option value="{{ old('department_code') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
+                    <label for="department_id">Department</label>
+                    <select class="custom-select{{ $errors->has('department_id') ? ' is-invalid' : '' }}" id="department_id" name="department_id" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
+                        <option value="{{ old('department_id') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
                         @foreach($departments as $department)
-                        <option value="{{ $department->code }}">({{ $department->code }}) {{ $department->name }}</option>
+                        <option value="{{ $department->id }}">({{ $department->code }}) {{ $department->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('department_code'))
+                    @if ($errors->has('department_id'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('department_code') }}</strong>
+                        <strong>{{ $errors->first('department_id') }}</strong>
                     </span>
                     @endif
                 </div>
-                <div class="form-group checkbox">
-                    <label class="mt-sm-2">
-                        <input type="checkbox" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1"> Is Active?
-                    </label>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1">
+                    <label class="custom-control-label" for="status">Is Active?</label>
                 </div>
                 <div class="card p-2">
                     <button type="submit" class="btn btn-primary">Save</button>

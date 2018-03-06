@@ -43,16 +43,18 @@ class ClassDashboardController extends GradeDashboardController
      */
     public function store(Request $request)
     {
-        $request['code'] = $request['grade_code'] . '-' . $request['name'];
+        $grade = $this->grade->findOrFail($request['grade_id']);
+
+        $request['code'] = $grade->code . '-' . $request['name'];
 
         $this->validate($request, [
-            'name' => 'required|unique:classes,name,NULL,NULL,grade_code,'. $request['grade_code'],
-            'grade_code' => 'required',
+            'name' => 'required|unique:classes,name,NULL,NULL,grade_id,'. $request['grade_id'],
+            'grade_id' => 'required',
             'homeroom_teacher' => 'unique:classes|nullable'
         ],
         [
             'name.unique' => 'The class is already exist in this grade.',
-            'grade_code.required' => 'Please select the grade.',
+            'grade_id.required' => 'Please select the grade.',
             'homeroom_teacher.unique' => 'The homeroom teacher has been assigned to other classroom.'
         ]);
         
@@ -116,9 +118,9 @@ class ClassDashboardController extends GradeDashboardController
     public function getClassData()
     {
         $classes = $this->classroom
-            ->leftJoin('grades', 'classes.grade_code', '=', 'grades.code')
+            ->leftJoin('grades', 'classes.grade_id', '=', 'grades.id')
             ->leftJoin('staffs', 'classes.homeroom_teacher', '=', 'staffs.id')
-            ->leftJoin('departments', 'grades.department_code', '=', 'departments.code')
+            ->leftJoin('departments', 'grades.department_id', '=', 'departments.id')
             ->select(['classes.code as code', 'classes.name as name' ,'classes.status as status', 'classes.homeroom_teacher as homeroom_teacher', 'grades.name as gname', 'grades.code as gcode', 'departments.code as dcode', 'staffs.first_name as sfname', 'staffs.last_name as slname', 'classes.id as id']);
         
         return datatables()->of($classes)

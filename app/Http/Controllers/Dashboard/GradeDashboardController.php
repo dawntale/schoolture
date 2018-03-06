@@ -45,14 +45,16 @@ class GradeDashboardController extends AdministratorController
         $academicDate = Carbon::parse($request['schoolyear_start']);
         $academicYear = $academicDate->year;
 
-        $request['code'] = $academicYear . $request['department_code'] . $request['name'];
+        $department = $this->department->findOrFail($request['department_id']);
+
+        $request['code'] = $academicYear . $department->code . $request['name'];
 
         $this->validate($request, [
             'code' => 'required|unique:grades',
             'name' => 'required|unique:grades,name,NULL,NULL,schoolyear_start,'. $academicYear,
             'schoolyear_start' => 'required',
             'schoolyear_end' => 'required',
-            'department_code' => 'required'
+            'department_id' => 'required'
         ],
         [
             'name.unique' => 'The grade in this department is already exist.',
@@ -119,7 +121,7 @@ class GradeDashboardController extends AdministratorController
     public function getGradeData()
     {
         $grades = $this->grade
-            ->leftJoin('departments', 'grades.department_code', '=', 'departments.code')
+            ->leftJoin('departments', 'grades.department_id', '=', 'departments.id')
             ->select(['grades.code as code', 'grades.name as name' ,'grades.status as status', 'grades.schoolyear_start as schoolyear_start', 'grades.schoolyear_end as schoolyear_end', 'departments.name as dname', 'departments.code as dcode','grades.id as id']);
         
         return datatables()->of($grades)

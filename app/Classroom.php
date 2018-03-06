@@ -14,7 +14,7 @@ class Classroom extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'grade_id', 'homeroom_teacher',
+        'name', 'code', 'grade_id', 'homeroom_teacher', 'status',
     ];
 
     /**
@@ -25,7 +25,12 @@ class Classroom extends Model
      */
     public function grade()
     {
-    	return $this->belongsTo('App\Grade', 'grade_id');
+    	return $this->belongsTo('App\Grade');
+    }
+
+    public function schedule()
+    {
+        return $this->hasMany('App\Schedule', 'class_id');
     }
 
     /**

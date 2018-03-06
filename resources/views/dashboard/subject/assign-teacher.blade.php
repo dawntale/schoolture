@@ -86,7 +86,7 @@
                             @endforeach
                             @endforeach
                             @else
-                            <h5 class="card-title">No Subject in Department {{ $teacher }}</h5>
+                            <h5 class="card-title">No Subject in {{ $department->name }}</h5>
                             @endif
                         </div>
                         @endforeach

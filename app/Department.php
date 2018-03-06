@@ -20,6 +20,6 @@ class Department extends Model
      */
     public function grade()
     {
-        return $this->hasMany('App\Grade', 'department_code', 'code');
+        return $this->hasMany('App\Grade');
     }
 }

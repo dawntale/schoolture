@@ -17,7 +17,8 @@ class CreateClassesTable extends Migration
             $table->increments('id');
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('grade_code', 12);
+            $table->text('description')->nullable();
+            $table->integer('grade_id');
             $table->integer('homeroom_teacher')->nullable();
             $table->boolean('status')->default(0); // Active / Inactive
             $table->timestamps();

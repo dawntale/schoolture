@@ -72,7 +72,7 @@
             </table>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h4>{{ $student->name }}'s Classes</h4>
+                <h4>{{ $student->name }}'s Class History</h4>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignClass">Assign Class</button>
             </div>
             <table class="table">
@@ -109,7 +109,7 @@
                     <select class="custom-select{{ $errors->has('class_id') ? ' is-invalid' : '' }}" id="class_id" name="class_id" required>
                         <option value="{{ old('class_id') }}" selected>Choose Class...</option>
                         @foreach($classes as $class)
-                        <option value="{{ $class->id }}">{{ $class->grade->department->name }} {{ $class->grade->name }} {{ $class->name }}</option>
+                        <option value="{{ $class->id }}">{{ $class->grade->department->name }} / Grade : {{ $class->grade->name }} / Class : {{ $class->name }}</option>
                         @endforeach
                     </select>
                 </div>
