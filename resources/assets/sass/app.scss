@@ -12,3 +12,43 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.feather {
+ 	width: 16px;
+ 	height: 16px;
+ 	vertical-align: text-bottom;
+ 	margin-right: 8px;
+ }
+
+.sidebar {
+	li .active {
+		background-color: #eeeeee;
+	}
+
+	.nav-link {
+		padding: .5rem .5rem .5rem 1rem;
+	}
+
+	.nav-item a:hover {
+		background-color: #dddddd;
+	}
+}
+
+.action-row {
+    color: #ddd;
+    opacity: 0;
+
+    a:hover {
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+}
+
+.carousel-indicators>li, button {
+    cursor: pointer;
+}
+
+tr:hover td .action-row,
+div:hover>.action-row {
+    opacity: 1;
+}
