@@ -108,10 +108,3 @@
         </ul>
     </div>
 </nav>
-@section('script')
-    <script type="text/javascript">
-        if($('.sidebar .nav-link').hasClass('active')){
-            $('.active').siblings('.collapse').addClass('show');
-        };
-    </script>
-@endsection
