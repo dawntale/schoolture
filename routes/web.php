@@ -68,6 +68,12 @@ Route::prefix('dashboard')->group(function(){
         Route::post('subject/assign-teacher', 'SubjectDashboardController@teacherStore')->name('subject.teacher.store');
     });
 
+    // Schedule Section
+    Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        Route::get('/session', 'ScheduleDashboardController@sessionIndex')->name('session.index');
+        Route::get('/session/{grade}', 'ScheduleDashboardController@sessionCreate')->name('session.create');
+        Route::post('/session/{grade}', 'ScheduleDashboardController@sessionStore')->name('session.store');
+    });
     
     // Dashboard Home
     Route::get('/', 'AdministratorController@index')->name('admin.dashboard');
