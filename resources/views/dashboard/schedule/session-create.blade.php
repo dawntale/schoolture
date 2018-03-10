@@ -78,6 +78,7 @@
                             <th>Session</th>
                             <th>Time</th>
                             <th>Break</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,7 +86,12 @@
                         <tr>
                             <td>{{ $sessionBlock->name }}</td>
                             <td>{{ $sessionBlock->start_time }} - {{ $sessionBlock->end_time }}</td>
-                            <td>{{ $sessionBlock->isBreak }}</td>
+                            @if($sessionBlock->isBreak == true)
+                            <td>Yes</td>
+                            @else
+                            <td>No</td>
+                            @endif
+                            <td>Edit | Delete</td>
                         </tr>
                         @endforeach
                     </tbody>

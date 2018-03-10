@@ -70,6 +70,10 @@ Route::prefix('dashboard')->group(function(){
 
     // Schedule Section
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        // Class Schedule Section
+        Route::get('/schedule', 'ScheduleDashboardController@scheduleIndex')->name('schedule.index');
+        Route::get('/schedule/{class}', 'ScheduleDashboardController@scheduleCreate')->name('schedule.create');
+        Route::post('/schedule/{class}', 'ScheduleDashboardController@scheduleStore')->name('schedule.store');
         Route::get('/session', 'ScheduleDashboardController@sessionIndex')->name('session.index');
         Route::get('/session/{grade}', 'ScheduleDashboardController@sessionCreate')->name('session.create');
         Route::post('/session/{grade}', 'ScheduleDashboardController@sessionStore')->name('session.store');

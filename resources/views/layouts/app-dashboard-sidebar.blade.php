@@ -98,10 +98,15 @@
                 <a class="nav-link {{ Request::is('*schedule*') || Request::is('*session*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-schedule" aria-expanded="false" role="button"><span data-feather="calendar"></span>Manage Schedule<span class="float-right" data-feather="chevron-down"></span></a>
                 <ul data-toggled="#side-schedule" id="side-schedule" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.subject.create') }}"><span data-feather="plus-square"></span>Add Subject</a>
+                        <a class="nav-link {{ Request::is('*schedule*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-sch" aria-expanded="false" role="button"><span data-feather="user-plus"></span>Schedule<span class="float-right" data-feather="chevron-down"></span></a>
+                        <ul id="side-sch" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-schedule">
+                            <li class="nav-item">
+                                <a class="nav-link {{ Request::is('*schedule*') ? 'active' : '' }}" href="{{ route('dashboard.schedule.index') }}"><span data-feather="user-plus"></span>Add Schedule</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*session') ? 'active' : '' }}" href="{{ route('dashboard.session.index') }}"><span data-feather="user-plus"></span>Session Block</a>
+                        <a class="nav-link {{ Request::is('*session*') ? 'active' : '' }}" href="{{ route('dashboard.session.index') }}"><span data-feather="user-plus"></span>Session Block</a>
                     </li>
                 </ul>
             </li>

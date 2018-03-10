@@ -21,16 +21,33 @@
                 {{ session('success') }}
             </div>
             @endif
-            <div class="row">
-                @foreach($departments as $department)
-                <div class="col-md-4 mb-3">
-                    <h2 class="h4">{{ $department->name }} ({{ $department->code }})</h2>
-                    @foreach($department->grade as $grade)
-                    <a href="{{ route('dashboard.session.create', $grade->code) }}" class="btn btn-primary d-block mb-3">{{ $grade->code }}</a>
-                    @endforeach
+            @if($departments->count() > 0)
+            @foreach($departments as $department)
+            <div class="card mb-3">
+                <h5 class="card-header">{{ $department->name }} ({{ $department->code }})</h5>
+
+                @if($department->grade->count() > 0)
+                <div class="card-body">
+                    <div class="col-6 col-md-4 col-xl-3">
+                        @foreach($department->grade as $grade)
+                        <a href="{{ route('dashboard.session.create', $grade->code) }}" class="btn btn-primary d-block mb-3">Grade : {{ $grade->name }}</a>
+                        @endforeach
+                    </div>
                 </div>
-                @endforeach
+                @else
+                <div class="card-body">
+                    <div class="alert alert-danger mb-0" role="alert">
+                        You don't have grades data. Please create the <a href="{{ route('dashboard.grade.create') }}" class="alert-link">grade</a> first.
+                    </div>
+                </div>
+                @endif
             </div>
+            @endforeach
+            @else
+            <div class="alert alert-danger" role="alert">
+                Please create <a href="{{ route('dashboard.department.create') }}" class="alert-link">department</a> and <a href="{{ route('dashboard.grade.create') }}" class="alert-link">grade</a> first.
+            </div>
+            @endif
         </main>
     </div>
 </div>

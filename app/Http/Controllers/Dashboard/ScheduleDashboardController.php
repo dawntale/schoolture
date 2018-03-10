@@ -7,80 +7,62 @@ use App\Http\Controllers\Dashboard\ClassDashboardController;
 
 class ScheduleDashboardController extends ClassDashboardController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function createSchedule(Request $request)
     {
-        //
+        $days = ['1', '2', '3', '4', '5', '6', '7'];
+
+        $classid = $request->get('id');
+
+        $schedules = $this->schedule->where('class_id', 1)->get();
+
+        $sessionBlocks = $this->sessionTime->orderBy('start_time', 'asc')->get();
+
+        return view('dashboard.schedule.create')
+            ->withSessionBlocks($sessionBlocks)
+            ->withDays($days)
+            ->withSchedules($schedules);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function scheduleIndex()
     {
-        //
+        $sessionBlocks = $this->sessionBlock->all();
+
+        $departments = $this->department->where('status', 1)->get();
+
+        $grades = $this->grade->all();
+
+        return view('dashboard.schedule.index')
+            ->withSessionBlocks($sessionBlocks)
+            ->withDepartments($departments)
+            ->withGrades($grades);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function scheduleCreate($class)
     {
-        //
-    }
+        $class = $this->classroom->where('code', $class)->firstOrFail();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $sessionBlocks = $this->sessionBlock->where('grade_id', $class->grade_id)->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $schedules = $this->schedule->where('class_id', $class->id)->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $subjects = $this->subject->with('staff')->where('department_id', $class->grade->department->id)->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $days = [
+            '0' => 'Sunday',
+            '1' => 'Monday',
+            '2' => 'Tuesday',
+            '3' => 'Wednesday',
+            '4' => 'Thursday',
+            '5' => 'Friday',
+            '6' => 'Saturday'
+        ];
+
+        return view('dashboard.schedule.create')
+            ->withClass($class)
+            ->withSchedules($schedules)
+            ->withSessionBlocks($sessionBlocks)
+            ->withDays($days)
+            ->withSubjects($subjects);
     }
 
     public function sessionIndex()
