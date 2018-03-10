@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(App\Administrator::class)->create();
+        factory(App\Student::class, 50)->create();
+        factory(App\Staff::class, 50)->create();
+        factory(App\Position::class)->create();
     }
 }
