@@ -22,6 +22,6 @@ class PositionSeeder extends Seeder
         	],[
         		'name' => 'Security'
         	]
-        ])
+        ]);
     }
 }
