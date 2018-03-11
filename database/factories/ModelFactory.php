@@ -10,24 +10,6 @@ $factory->define(App\Administrator::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Department::class, function (Faker $faker) {
-    return [
-
-    ];
-});
-
-$factory->define(App\Grade::class, function (Faker $faker) {
-    return [
-
-    ];
-});
-
-$factory->define(App\Classroom::class, function (Faker $faker) {
-    return [
-
-    ];
-});
-
 $factory->define(App\Staff::class, function (Faker $faker) {
     return [
     	'staff_id' => $faker->randomNumber(8),
@@ -36,12 +18,6 @@ $factory->define(App\Staff::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => Hash::make('123456'),
         'birthdate' => $faker->date,
-    ];
-});
-
-$factory->define(App\Position::class, function (Faker $faker) {
-    return [
-        'name' => 'Teacher',
     ];
 });
 
@@ -54,11 +30,5 @@ $factory->define(App\Student::class, function (Faker $faker) {
         'password' => Hash::make('123456'),
         'birthdate' => $faker->date,
         'sex' => $faker->randomElement(['Male', 'Female']),
-    ];
-});
-
-$factory->define(App\Subject::class, function (Faker $faker) {
-    return [
-
     ];
 });
