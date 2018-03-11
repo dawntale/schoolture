@@ -30,7 +30,7 @@
             </div>
             @endif
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h4>{{ $student->name }}'s Details</h4>
+                <h4>{{ $student->name }}'s Details</h4><a class="btn btn-primary" href="{{ route('dashboard.student.edit', $student->student_id) }}">Edit Student</a>
             </div>
             <table class="table">
                 <tr>

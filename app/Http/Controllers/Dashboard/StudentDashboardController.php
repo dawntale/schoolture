@@ -28,9 +28,13 @@ class StudentDashboardController extends AdministratorController
      */
     public function create()
     {
+        $student = new $this->student;
+
         $grades = $this->grade->orderBy('schoolyear_start', 'desc')->get();
 
-        return view('dashboard.student.create')->withGrades($grades);
+        return view('dashboard.student.create')
+            ->withStudent($student)
+            ->withGrades($grades);
     }
 
     /**
@@ -68,7 +72,7 @@ class StudentDashboardController extends AdministratorController
      */
     public function show($id)
     {
-        $student = $this->student->findOrFail($id);
+        $student = $this->student->where('student_id', $id)->firstOrFail();
 
         // Only get classes with the same grade as the student
         $classes = $this->classroom->where('grade_id', $student->grade_id)->get();
@@ -84,7 +88,13 @@ class StudentDashboardController extends AdministratorController
      */
     public function edit($id)
     {
-        //
+        $student = $this->student->where('student_id', $id)->firstOrFail();
+
+        $grades = $this->grade->orderBy('schoolyear_start', 'desc')->get();
+
+        return view('dashboard.student.edit')
+            ->withStudent($student)
+            ->withGrades($grades);
     }
 
     /**
@@ -96,7 +106,21 @@ class StudentDashboardController extends AdministratorController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'student_id' => 'required|unique:students,student_id,'.$id,
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email|unique:students,email,'.$id,
+            'birthdate' => 'required',
+            'sex' => 'required|in:Male,Female',
+            'grade_id' => 'required|integer',
+        ]);
+        
+        $input = $request->all();
+        
+        $this->student->findOrFail($id)->update($input);
+        
+        return redirect()->back()->with('success', 'Student has been updated!');
     }
 
     /**
@@ -120,7 +144,8 @@ class StudentDashboardController extends AdministratorController
         $staff = $this->student->select(['student_id', 'email', 'first_name', 'last_name', 'id']);
         
         return datatables()->of($staff)
-            ->addColumn('name', '<a href="{{ route(\'dashboard.student.show\', $id) }}">{{$first_name}} {{$last_name}}</a>')
+            ->addColumn('name', '<a href="{{ route(\'dashboard.student.show\', $student_id) }}">{{$first_name}} {{$last_name}}</a>
+                {!! Builder::action("student", $student_id) !!}')
             ->rawColumns(['name'])
             ->removeColumn('first_name', 'last_name')
             ->make();
