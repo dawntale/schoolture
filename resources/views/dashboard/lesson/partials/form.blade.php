@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="name">Lesson name</label>
     <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}" placeholder="Name" autocomplete required>
-    <small id="name" class="form-text text-muted">Ex: Mathematic, Grade 10</small>
+    <small id="name" class="form-text text-muted">Ex: Mathematic, Grade 10 / Mathematic (Prof. Carl Culu, PhD), Grade 12</small>
     @if ($errors->has('name'))
         <span class="invalid-feedback">
             <strong>{{ $errors->first('name') }}</strong>
@@ -54,6 +54,10 @@
         <strong>{{ $errors->first('staff_id') }}</strong>
     </span>
     @endif
+</div>
+<div class="custom-control custom-checkbox mb-3">
+    <input type="checkbox" class="custom-control-input" name="status" id="status" {{ old('status') ? 'checked' : '' }} value="1">
+    <label class="custom-control-label" for="status">Is Active?</label>
 </div>
 <div class="card p-2">
     <button type="submit" class="btn btn-primary">Save</button>

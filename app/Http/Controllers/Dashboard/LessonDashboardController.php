@@ -50,7 +50,20 @@ class LessonDashboardController extends AdministratorController
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:190',
+            'description' => 'nullable',
+            'grade_id' => 'required|integer',
+            'subject_id' => 'required|integer',
+            'staff_id' => 'required|integer',
+            'status' => 'required|in:0,1'
+        ]);
+
+        $input = $request->all();
+        
+        $this->lesson->create($input);
+        
+        return redirect()->back()->with('success', 'New Lesson has been created!');
     }
 
     /**
