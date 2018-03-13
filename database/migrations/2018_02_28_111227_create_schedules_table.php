@@ -18,8 +18,7 @@ class CreateSchedulesTable extends Migration
             $table->integer('class_id');
             $table->tinyinteger('day');
             $table->smallinteger('session_block_id');
-            $table->integer('subject_id');
-            $table->integer('staff_id'); // Teacher only
+            $table->integer('lesson_id');
             $table->timestamps();
         });
     }

@@ -98,16 +98,16 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="subject_id">Subject</label>
-                    <select class="custom-select{{ $errors->has('subject_id') ? ' is-invalid' : '' }}" id="subject_id" name="subject_id" required {{ $subjects->isEmpty() ? ' disabled' : '' }}>
-                        <option value="{{ old('subject_id') }}" selected>{{ $subjects->isEmpty() ? ' Create Subject First' : 'Choose Subject...' }}</option>
-                        @foreach($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                    <label for="lesson_id">Lesson</label>
+                    <select class="custom-select{{ $errors->has('lesson_id') ? ' is-invalid' : '' }}" id="lesson_id" name="lesson_id" required {{ $lessons->isEmpty() ? ' disabled' : '' }}>
+                        <option value="{{ old('lesson_id') }}" selected>{{ $lessons->isEmpty() ? ' Create Subject First' : 'Choose Subject...' }}</option>
+                        @foreach($lessons as $lesson)
+                        <option value="{{ $lesson->id }}">{{ $lesson->name }} ({{ $lesson->teacher->name }})</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('subject_id'))
+                    @if ($errors->has('lesson_id'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('subject_id') }}</strong>
+                        <strong>{{ $errors->first('lesson_id') }}</strong>
                     </span>
                     @endif
                 </div>

@@ -7,22 +7,6 @@ use App\Http\Controllers\Dashboard\ClassDashboardController;
 
 class ScheduleDashboardController extends ClassDashboardController
 {
-    public function createSchedule(Request $request)
-    {
-        $days = ['1', '2', '3', '4', '5', '6', '7'];
-
-        $classid = $request->get('id');
-
-        $schedules = $this->schedule->where('class_id', 1)->get();
-
-        $sessionBlocks = $this->sessionTime->orderBy('start_time', 'asc')->get();
-
-        return view('dashboard.schedule.create')
-            ->withSessionBlocks($sessionBlocks)
-            ->withDays($days)
-            ->withSchedules($schedules);
-    }
-
     public function scheduleIndex()
     {
         $sessionBlocks = $this->sessionBlock->all();
@@ -45,7 +29,7 @@ class ScheduleDashboardController extends ClassDashboardController
 
         $schedules = $this->schedule->where('class_id', $class->id)->get();
 
-        $subjects = $this->subject->with('staff')->where('department_id', $class->grade->department->id)->get();
+        $lessons = $this->lesson->where('grade_id', $class->grade->id)->where('status', 1)->get();
 
         $days = [
             '0' => 'Sunday',
@@ -62,7 +46,7 @@ class ScheduleDashboardController extends ClassDashboardController
             ->withSchedules($schedules)
             ->withSessionBlocks($sessionBlocks)
             ->withDays($days)
-            ->withSubjects($subjects);
+            ->withLessons($lessons);
     }
 
     public function sessionIndex()
