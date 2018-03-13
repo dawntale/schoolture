@@ -63,9 +63,6 @@ Route::prefix('dashboard')->group(function(){
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
         Route::resource('subject', 'SubjectDashboardController', 
             ['only' => ['create', 'store', 'edit', 'update']]);
-
-        Route::get('subject/assign-teacher', 'SubjectDashboardController@teacher')->name('subject.teacher');
-        Route::post('subject/assign-teacher', 'SubjectDashboardController@teacherStore')->name('subject.teacher.store');
     });
 
     // Schedule Section

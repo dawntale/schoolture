@@ -131,38 +131,4 @@ class SubjectDashboardController extends StudentDashboardController
     {
         //
     }
-
-    public function teacher()
-    {
-        // Scope staff from position name
-        $teachers = $this->staff->positionName('Teacher')->get();
-
-        // Department Collection
-        $departments = $this->department->where('status', 1)->get();
-
-        // Subject Collection
-        $subjects = $this->subject->all();
-        
-        return view('dashboard.subject.assign-teacher')
-            ->withSubjects($subjects)
-            ->withTeachers($teachers)
-            ->withDepartments($departments);
-    }
-
-    public function teacherStore(Request $request)
-    {
-        $this->validate($request, [
-            'staff_id' => 'required|unique:teachers_subjects,staff_id,NULL,NULL,subject_id,'. $request['subject_id'],
-        ],[
-            'staff_id.unique' => 'The staff has already been assigned with the subject.',
-        ]);
-
-        $id = $request['staff_id'];
-        
-        $staff = $this->staff->findOrFail($id);
-        
-        $staff->subject()->attach($request['subject_id']);
-        
-        return redirect()->back()->with('success', 'Teacher has been assigned with subject successfuly!');
-    }
 }

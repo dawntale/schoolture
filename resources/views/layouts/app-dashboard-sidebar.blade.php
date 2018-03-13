@@ -87,9 +87,6 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('*subject/create') ? 'active' : '' }}" href="{{ route('dashboard.subject.create') }}"><span data-feather="book"></span>Add Subject</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('*subject/assign-teacher') ? 'active' : '' }}" href="{{ route('dashboard.subject.teacher') }}"><span data-feather="log-in"></span>Assign Teacher</a>
-                    </li>
                 </ul>
             </li>
 
