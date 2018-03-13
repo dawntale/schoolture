@@ -28,9 +28,11 @@
 
                 @if($department->grade->count() > 0)
                 <div class="card-body">
-                    <div class="col-6 col-md-4 col-xl-3">
+                    <div class="row">
                         @foreach($department->grade as $grade)
-                        <a href="{{ route('dashboard.session.create', $grade->code) }}" class="btn btn-primary d-block mb-3">Grade : {{ $grade->name }}</a>
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <a href="{{ route('dashboard.session.create', $grade->code) }}" class="btn btn-primary d-block mb-3">Grade : {{ $grade->name }}</a>
+                        </div>
                         @endforeach
                     </div>
                 </div>

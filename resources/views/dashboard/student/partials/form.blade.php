@@ -65,7 +65,7 @@
             <option value="" selected>Choose Grade...</option>
             @foreach($grades as $grade)
             <option value="{{ $grade->id }}" {{ (old('grade_id', 
-                $student->grade_id ? $student->grade_id : null) == $grade->id) ? 'selected' : '' }}>{{ $grade->department->name }} - {{ $grade->name }} ({{ $grade->schoolyear }})</option>
+                $student->grade_id ? $student->grade_id : null) == $grade->id) ? 'selected' : '' }}>{{ $grade->department->name }} - {{ $grade->name }}</option>
             @endforeach
         </select>
         @if ($errors->has('grade_id'))
