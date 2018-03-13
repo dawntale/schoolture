@@ -49,6 +49,24 @@ class ScheduleDashboardController extends ClassDashboardController
             ->withLessons($lessons);
     }
 
+    public function scheduleStore(Request $request, $class)
+    {
+        $request['class_id'] = $class;
+
+        $this->validate($request, [
+            'class_id' => 'required|integer',
+            'day' => 'required|integer',
+            'session_block_id' => 'required|integer',
+            'lesson_id' => 'required|integer'
+        ]);
+        
+        $input = $request->all();
+        
+        $this->schedule->create($input);
+        
+        return redirect()->back()->with('success', 'New schedule has been created!');
+    }
+
     public function sessionIndex()
     {
         $departments = $this->department->where('status', 1)->get();

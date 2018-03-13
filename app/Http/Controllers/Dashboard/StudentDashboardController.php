@@ -90,7 +90,7 @@ class StudentDashboardController extends AdministratorController
     {
         $student = $this->student->where('student_id', $id)->firstOrFail();
 
-        $grades = $this->grade->orderBy('schoolyear_start', 'desc')->get();
+        $grades = $this->grade->all();
 
         return view('dashboard.student.edit')
             ->withStudent($student)
