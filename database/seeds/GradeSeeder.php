@@ -14,88 +14,64 @@ class GradeSeeder extends Seeder
     {
         DB::table('grades')->insert([
             [
-                'code' => '2018SHS12',
+                'code' => 'SHS12',
                 'name' => '12',
                 'department_id' => 1,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018SHS11',
+                'code' => 'SHS11',
                 'name' => '11',
                 'department_id' => 1,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018SHS10',
+                'code' => 'SHS10',
                 'name' => '10',
                 'department_id' => 1,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018JHS09',
+                'code' => 'JHS09',
                 'name' => '9',
                 'department_id' => 2,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018JHS08',
+                'code' => 'JHS08',
                 'name' => '8',
                 'department_id' => 2,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018JHS07',
+                'code' => 'JHS07',
                 'name' => '7',
                 'department_id' => 2,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE06',
+                'code' => 'ELE06',
                 'name' => '6',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE05',
+                'code' => 'ELE05',
                 'name' => '5',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE04',
+                'code' => 'ELE04',
                 'name' => '4',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE03',
+                'code' => 'ELE03',
                 'name' => '3',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE02',
+                'code' => 'ELE02',
                 'name' => '2',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ],[
-                'code' => '2018ELE01',
+                'code' => 'ELE01',
                 'name' => '1',
                 'department_id' => 3,
-                'schoolyear_start' => '2018-07-22',
-                'schoolyear_end' => '2019-07-22',
                 'status' => 1
             ]
         ]);
