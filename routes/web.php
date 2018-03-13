@@ -78,6 +78,12 @@ Route::prefix('dashboard')->group(function(){
         Route::get('/session/{grade}', 'ScheduleDashboardController@sessionCreate')->name('session.create');
         Route::post('/session/{grade}', 'ScheduleDashboardController@sessionStore')->name('session.store');
     });
+
+   Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
+        // Lesson Section
+        Route::resource('lesson', 'LessonDashboardController', 
+            ['only' => ['index', 'create', 'store']]);
+    });
     
     // Dashboard Home
     Route::get('/', 'AdministratorController@index')->name('admin.dashboard');

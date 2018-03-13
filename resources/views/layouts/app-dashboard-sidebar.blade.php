@@ -93,6 +93,19 @@
                 </ul>
             </li>
 
+            <!-- Manage Lesson -->
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('*lesson*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-lesson" aria-expanded="false" role="button"><span data-feather="book-open"></span>Manage Lesson<span class="float-right" data-feather="chevron-down"></span></a>
+                <ul data-toggled="#side-lesson" id="side-lesson" class="ml-4 list-unstyled flex-column collapse border-left" data-parent="#side-menu">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('*lesson') ? 'active' : '' }}" href="{{ route('dashboard.lesson.index') }}"><span data-feather="book"></span>All Lesson</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('*lesson/create') ? 'active' : '' }}" href="{{ route('dashboard.lesson.create') }}"><span data-feather="log-in"></span>Create Lesson</a>
+                    </li>
+                </ul>
+            </li>
+
             <!-- Manage Schedule -->
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('*schedule*') || Request::is('*session*') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#side-schedule" aria-expanded="false" role="button"><span data-feather="calendar"></span>Manage Schedule<span class="float-right" data-feather="chevron-down"></span></a>
