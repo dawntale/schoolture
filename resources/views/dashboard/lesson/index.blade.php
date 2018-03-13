@@ -25,9 +25,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Grade</th>
                         <th>Teacher Name</th>
                         <th>Subject Name</th>
+                        <th>Grade</th>
+                        <th>Department</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +36,10 @@
                     <tr>
                         <td>{{ $lesson->id }}</td>
                         <td>{{ $lesson->name }}</td>
-                        <td>{{ $lesson->grade->name }}</td>
                         <td>{{ $lesson->teacher->name }}</td>
                         <td>{{ $lesson->subject->name }}</td>
+                        <td>{{ $lesson->grade->name }}</td>
+                        <td>{{ $lesson->grade->department->name }}</td>
                     </tr>
                     @endforeach
                 </tbody>
