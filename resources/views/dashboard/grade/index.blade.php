@@ -19,7 +19,6 @@
                         <tr>
                             <th>Code</th>
                             <th>Grade</th>
-                            <th>Academic Year</th>
                             <th>Department</th>
                             <th>Status</th>
                         </tr>
@@ -41,7 +40,6 @@
         columns    : [
             {data: 'code', name: 'code'},
             {data: 'name', name: 'name'},
-            {data: 'academic_year', name: 'academic_year'},
             {data: 'dname', name: 'dname'},
             {data: 'status', name: 'status'}
         ],

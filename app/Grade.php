@@ -15,7 +15,7 @@ class Grade extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'schoolyear_start', 'schoolyear_end', 'department_id', 'status',
+        'code', 'name', 'department_id', 'status',
     ];
 
     /**
@@ -31,22 +31,5 @@ class Grade extends Model
 
     public function classroom(){
         return $this->hasMany('App\Classroom');
-    }
-
-    /**
-     * Get the grade's academic year.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getSchoolyearAttribute()
-    {
-        $school_start = Carbon::parse($this->schoolyear_start);
-        $school_start_year = $school_start->year;
-
-        $school_end = Carbon::parse($this->schoolyear_end);
-        $school_end_year = $school_end->year;
-
-        return "{$school_start_year}/{$school_end_year}";
     }
 }

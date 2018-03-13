@@ -19,8 +19,6 @@ class CreateGradesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('department_id');
-            $table->string('schoolyear_start', 15);
-            $table->string('schoolyear_end', 15);
             $table->boolean('status')->default(0); // Active / Inactive
             $table->timestamps();
         });

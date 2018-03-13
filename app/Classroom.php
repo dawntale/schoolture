@@ -14,7 +14,7 @@ class Classroom extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'grade_id', 'homeroom_teacher', 'status',
+        'name', 'code', 'grade_id', 'homeroom_teacher', 'schoolyear_start', 'schoolyear_end', 'status',
     ];
 
     /**
@@ -42,5 +42,22 @@ class Classroom extends Model
     public function homeroomTeacher()
     {
     	return $this->hasOne('App\Staff', 'id', 'homeroom_teacher');
+    }
+
+    /**
+     * Get the grade's academic year.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAcademicYearAttribute()
+    {
+        $school_start = Carbon::parse($this->schoolyear_start);
+        $school_start_year = $school_start->year;
+
+        $school_end = Carbon::parse($this->schoolyear_end);
+        $school_end_year = $school_end->year;
+
+        return "{$school_start_year}/{$school_end_year}";
     }
 }

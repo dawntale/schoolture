@@ -30,7 +30,7 @@ class ClassDashboardController extends GradeDashboardController
         $teachers = $this->staff->positionName('Teacher')->get();
 
         // Grade collection from current year
-        $grades = $this->grade->where('status', 1)->orderBy('schoolyear_start', 'desc')->get();
+        $grades = $this->grade->where('status', 1)->get();
 
         return view('dashboard.class.create')->withGrades($grades)->withTeachers($teachers);
     }
@@ -43,14 +43,21 @@ class ClassDashboardController extends GradeDashboardController
      */
     public function store(Request $request)
     {
+        // Get the academic year only to construct class unique code
+        $academicDate = Carbon::parse($request['schoolyear_start']);
+        $academicYear = $academicDate->year;
+
         $grade = $this->grade->findOrFail($request['grade_id']);
 
-        $request['code'] = $grade->code . '-' . $request['name'];
+        $request['code'] = $academicYear . '-' .$grade->code . '-' . $request['name'];
 
         $this->validate($request, [
             'name' => 'required|unique:classes,name,NULL,NULL,grade_id,'. $request['grade_id'],
             'grade_id' => 'required',
-            'homeroom_teacher' => 'unique:classes|nullable'
+            'homeroom_teacher' => 'unique:classes|nullable',
+            'schoolyear_start' => 'required',
+            'schoolyear_end' => 'required',
+            'status' => 'required|in:0,1'
         ],
         [
             'name.unique' => 'The class is already exist in this grade.',
@@ -121,7 +128,7 @@ class ClassDashboardController extends GradeDashboardController
             ->leftJoin('grades', 'classes.grade_id', '=', 'grades.id')
             ->leftJoin('staffs', 'classes.homeroom_teacher', '=', 'staffs.id')
             ->leftJoin('departments', 'grades.department_id', '=', 'departments.id')
-            ->select(['classes.code as code', 'classes.name as name' ,'classes.status as status', 'classes.homeroom_teacher as homeroom_teacher', 'grades.name as gname', 'grades.code as gcode', 'departments.code as dcode', 'staffs.first_name as sfname', 'staffs.last_name as slname', 'classes.id as id']);
+            ->select(['classes.code as code', 'classes.name as name' ,'classes.status as status', 'classes.homeroom_teacher as homeroom_teacher', 'classes.schoolyear_start as schoolyear_start', 'classes.schoolyear_end as schoolyear_end', 'grades.name as gname', 'grades.code as gcode', 'departments.code as dcode', 'staffs.first_name as sfname', 'staffs.last_name as slname', 'classes.id as id']);
         
         return datatables()->of($classes)
             ->editColumn('name', '<a href="#">{{$name}}</a>')
@@ -140,7 +147,8 @@ class ClassDashboardController extends GradeDashboardController
                     return '<i class="text-danger fa fa-times"></i> N/A';
                 }
             })
-            ->rawColumns(['name', 'status', 'sname'])
+            ->addColumn('academic_year', '<span title="{{ $schoolyear_start }}/{{ $schoolyear_end }}">{{ Carbon\Carbon::parse($schoolyear_start)->year }}/{{ Carbon\Carbon::parse($schoolyear_end)->year }}</span>')
+            ->rawColumns(['name', 'status', 'sname', 'academic_year'])
             ->removeColumn('id', 'gcode', 'sfname', 'slname')
             ->make();
     }

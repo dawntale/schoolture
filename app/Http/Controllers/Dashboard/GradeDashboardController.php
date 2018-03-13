@@ -41,19 +41,13 @@ class GradeDashboardController extends AdministratorController
      */
     public function store(Request $request)
     {
-        // Get the academic year only to construct grade unique code
-        $academicDate = Carbon::parse($request['schoolyear_start']);
-        $academicYear = $academicDate->year;
-
         $department = $this->department->findOrFail($request['department_id']);
 
-        $request['code'] = $academicYear . $department->code . $request['name'];
+        $request['code'] = $department->code . $request['name'];
 
         $this->validate($request, [
             'code' => 'required|unique:grades',
-            'name' => 'required|unique:grades,name,NULL,NULL,schoolyear_start,'. $academicYear,
-            'schoolyear_start' => 'required',
-            'schoolyear_end' => 'required',
+            'name' => 'required|unique:grades',
             'department_id' => 'required'
         ],
         [
@@ -122,7 +116,7 @@ class GradeDashboardController extends AdministratorController
     {
         $grades = $this->grade
             ->leftJoin('departments', 'grades.department_id', '=', 'departments.id')
-            ->select(['grades.code as code', 'grades.name as name' ,'grades.status as status', 'grades.schoolyear_start as schoolyear_start', 'grades.schoolyear_end as schoolyear_end', 'departments.name as dname', 'departments.code as dcode','grades.id as id']);
+            ->select(['grades.code as code', 'grades.name as name' ,'grades.status as status', 'departments.name as dname', 'departments.code as dcode','grades.id as id']);
         
         return datatables()->of($grades)
             ->editColumn('name', '<a href="#">{{$name}}</a>')
@@ -133,9 +127,8 @@ class GradeDashboardController extends AdministratorController
                 <i class="text-danger fa fa-times"></i> In Active
             @endif
             ')
-            ->addColumn('academic_year', '<span title="{{ $schoolyear_start }}/{{ $schoolyear_end }}">{{ Carbon\Carbon::parse($schoolyear_start)->year }}/{{ Carbon\Carbon::parse($schoolyear_end)->year }}</span>')
             ->editColumn('dname', '{{$dname}} ({{$dcode}})')
-            ->rawColumns(['name', 'status', 'academic_year'])
+            ->rawColumns(['name', 'status'])
             ->removeColumn('id')
             ->make();
     }

@@ -20,6 +20,8 @@ class CreateClassesTable extends Migration
             $table->text('description')->nullable();
             $table->integer('grade_id');
             $table->integer('homeroom_teacher')->nullable();
+            $table->string('schoolyear_start', 15);
+            $table->string('schoolyear_end', 15);
             $table->boolean('status')->default(0); // Active / Inactive
             $table->timestamps();
         });

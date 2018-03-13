@@ -22,6 +22,7 @@
                             <th>Homeroom Teacher</th>
                             <th>Grade (Code)</th>
                             <th>Department</th>
+                            <th>Academic Year</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -45,6 +46,7 @@
             {data: 'sname', name: 'sname'},
             {data: 'gname', name: 'gname'},
             {data: 'dcode', name: 'dcode'},
+            {data: 'academic_year', name: 'academic_year'},
             {data: 'status', name: 'status'}
         ],
         order : [

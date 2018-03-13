@@ -38,24 +38,6 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="schoolyear_start">Academic Year Start</label>
-                    <input type="date" class="form-control{{ $errors->has('schoolyear_start') ? ' is-invalid' : '' }}" name="schoolyear_start" id="schoolyear_start" value="{{ old('schoolyear_start') }}" placeholder="Academic Year Start" required>
-                    @if ($errors->has('schoolyear_start'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('schoolyear_start') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label for="schoolyear_end">Academic Year End</label>
-                    <input type="date" class="form-control{{ $errors->has('schoolyear_end') ? ' is-invalid' : '' }}" name="schoolyear_end" id="schoolyear_end" value="{{ old('schoolyear_end') }}" placeholder="Academic Year End" required>
-                    @if ($errors->has('schoolyear_end'))
-                        <span class="invalid-feedback">
-                            <strong>{{ $errors->first('schoolyear_end') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group">
                     <label for="department_id">Department</label>
                     <select class="custom-select{{ $errors->has('department_id') ? ' is-invalid' : '' }}" id="department_id" name="department_id" required {{ $departments->isEmpty() ? ' disabled' : '' }}>
                         <option value="{{ old('department_id') }}" selected>{{ $departments->isEmpty() ? ' Create Department First' : 'Choose Department...' }}</option>
