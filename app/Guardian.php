@@ -25,4 +25,9 @@ class Guardian extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function student()
+    {
+        return $this->belongsToMany('App\Student', 'students_guardians');
+    }
 }

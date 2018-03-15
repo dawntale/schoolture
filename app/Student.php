@@ -41,6 +41,11 @@ class Student extends Authenticatable
     {
         return $this->belongsToMany('App\Classroom', 'students_classes', 'student_id', 'class_id')->withTimestamps();;
     }
+
+    public function guardian()
+    {
+        return $this->belongsToMany('App\Guardian', 'students_guardians');
+    }
     
     /**
      * Get the student's full name.
