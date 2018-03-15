@@ -31,3 +31,18 @@ const app = new Vue({
 if($('.sidebar .nav-link').hasClass('active')){
     $('.active').siblings('.collapse').addClass('show');
 };
+
+$('#add-schedule').on('show.bs.modal', function (event) {
+	let button = $(event.relatedTarget)
+	let day = button.data('day')
+	let session = button.data('session')
+	let modal = $(this)
+
+	if(day != null && session != null){
+		modal.find('.modal-body #day').val(day)
+		modal.find('.modal-body #session_block_id').val(session)
+	} else {
+		modal.find('.modal-body #day').val(day)
+		modal.find('.modal-body #session_block_id').val(session)
+	}
+});

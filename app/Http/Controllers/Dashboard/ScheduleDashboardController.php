@@ -9,14 +9,11 @@ class ScheduleDashboardController extends ClassDashboardController
 {
     public function scheduleIndex()
     {
-        $sessionBlocks = $this->sessionBlock->all();
-
         $departments = $this->department->where('status', 1)->get();
 
         $grades = $this->grade->all();
 
         return view('dashboard.schedule.index')
-            ->withSessionBlocks($sessionBlocks)
             ->withDepartments($departments)
             ->withGrades($grades);
     }
@@ -26,8 +23,6 @@ class ScheduleDashboardController extends ClassDashboardController
         $class = $this->classroom->where('code', $class)->firstOrFail();
 
         $sessionBlocks = $this->sessionBlock->where('grade_id', $class->grade_id)->get();
-
-        $schedules = $this->schedule->where('class_id', $class->id)->get();
 
         $lessons = $this->lesson->where('grade_id', $class->grade->id)->where('status', 1)->get();
 
@@ -43,7 +38,6 @@ class ScheduleDashboardController extends ClassDashboardController
 
         return view('dashboard.schedule.create')
             ->withClass($class)
-            ->withSchedules($schedules)
             ->withSessionBlocks($sessionBlocks)
             ->withDays($days)
             ->withLessons($lessons);

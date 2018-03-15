@@ -12,7 +12,7 @@
         <main role="main" class="col-md-9 ml-sm-auto pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                 <h1 class="h2">View Schedule</h1>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#add-schedule" data-class="{{ $class->code }}">Add Schedule</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#add-schedule">Add Schedule</button>
             </div>
             @if(session('success'))
             <div class="alert alert-success alert-dismissible">
@@ -38,15 +38,28 @@
                     </thead>
                     <tbody>
                         @foreach($sessionBlocks as $rowKey => $block)
+                        @if($block->isBreak == false)
                         <tr>
-                            <td>{{ $block->name }}. {{ $block->times }}</td>
+                            <td class="align-middle">{{ $block->name }}. {{ $block->times }}</td>
                             @foreach($days as $colKey => $day)
-                            <td data-row="{{ $rowKey+1 }}" data-col="{{ $colKey+1 }}">
-                                Block: {{ $rowKey+1 }}<br>
-                                Day: {{ $colKey }}
+                            @forelse($block->schedule->where('class_id', $class->id)->where('day', $colKey)->where('session_block_id', $rowKey+1) as $sch)
+                            <td data-row="{{ $rowKey+1 }}" data-col="{{ $colKey+1 }}" class="align-middle">
+                                {{ $sch->lesson->subject->name }} ({{ $sch->lesson->grade->code }})<br>
+                                {{ $sch->lesson->teacher->name }}
                             </td>
+                            @empty
+                            <td class="align-middle">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#add-schedule" data-class="{{ $class->code }}" data-day="{{ $colKey }}" data-session="{{ $rowKey+1 }}">Add Schedule</button>
+                            </td>
+                            @endforelse
                             @endforeach
                         </tr>
+                        @else
+                        <tr>
+                            <td>{{ $block->name }}. {{ $block->times }}</td>
+                            <td colspan="7"class="text-center align-middle"><h4 class="font-weight-bold">School Break</h4></td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

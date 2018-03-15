@@ -12,6 +12,11 @@ class Schedule extends Model
     	'class_id', 'day', 'session_block_id', 'lesson_id',
     ];
 
+    public function lesson()
+    {
+        return $this->belongsTo('App\Lesson');
+    }
+
     public function time()
     {
     	return $this->hasMany('App\SessionBlock', 'id', 'session_block_id');

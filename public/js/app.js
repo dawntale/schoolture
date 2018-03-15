@@ -13634,6 +13634,21 @@ if ($('.sidebar .nav-link').hasClass('active')) {
   $('.active').siblings('.collapse').addClass('show');
 };
 
+$('#add-schedule').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var day = button.data('day');
+  var session = button.data('session');
+  var modal = $(this);
+
+  if (day != null && session != null) {
+    modal.find('.modal-body #day').val(day);
+    modal.find('.modal-body #session_block_id').val(session);
+  } else {
+    modal.find('.modal-body #day').val(day);
+    modal.find('.modal-body #session_block_id').val(session);
+  }
+});
+
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
