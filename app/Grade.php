@@ -32,4 +32,9 @@ class Grade extends Model
     public function classroom(){
         return $this->hasMany('App\Classroom');
     }
+
+    public function student()
+    {
+        return $this->hasMany('App\Student');
+    }
 }

@@ -10039,3 +10039,49 @@ div:hover > .action-row {
   opacity: 1;
 }
 
+.stats-box {
+  position: relative;
+  color: #f8f9fa;
+  margin: 15px 0;
+}
+
+.stats-box .stats-text {
+  padding: 15px;
+}
+
+.stats-box .stats-text h3 {
+  font-size: 2.5rem !important;
+}
+
+.stats-box .stats-text p {
+  font-size: 1.25rem;
+}
+
+.stats-box .stats-icon {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  color: black;
+  opacity: .3;
+}
+
+.stats-box .stats-icon .feather {
+  height: 100px;
+  width: 100px;
+}
+
+.stats-box .stats-link {
+  color: #fff;
+  text-align: center;
+  display: block;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: .5;
+}
+
+.stats-box a.stats-link:hover {
+  opacity: 1;
+  color: #fff;
+  text-decoration: none;
+}
+

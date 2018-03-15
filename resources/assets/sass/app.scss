@@ -52,3 +52,49 @@ tr:hover td .action-row,
 div:hover>.action-row {
     opacity: 1;
 }
+
+.stats-box {
+	position: relative;
+	color: $light;
+	margin: 15px 0;
+
+	.stats-text {
+		padding: 15px;
+
+		h3 {
+			font-size: 2.5rem !important;
+		}
+
+		p {
+			font-size: 1.25rem;
+		}
+	}
+
+	.stats-icon {
+		position: absolute;
+		right: 15px;
+		top: 10px;
+		color: rgb(0,0,0);
+		opacity: .3;
+
+		.feather {
+			height: 100px;
+			width: 100px;
+		}
+	}
+
+	.stats-link {
+		color: #fff;
+		text-align: center;
+		display: block;
+		padding: 5px;
+		background: rgba(0,0,0,.2);
+		opacity: .5;
+	}
+
+	a.stats-link:hover {
+		opacity: 1;
+		color: #fff;
+		text-decoration: none;
+	}
+}

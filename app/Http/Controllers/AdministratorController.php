@@ -45,7 +45,14 @@ class AdministratorController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $departments = $this->department->where('status', 1)->get();
+        $studentCount = $this->student->count();
+        $staffCount = $this->staff->count();
+
+        return view('dashboard.index')
+            ->withDepartments($departments)
+            ->withStudentCount($studentCount)
+            ->withStaffCount($staffCount);
     }
     
     /**
