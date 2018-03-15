@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdministratorController;
+use Illuminate\Support\Facades\Hash;
 
 class GuardianDashboardController extends AdministratorController
 {
@@ -41,7 +42,21 @@ class GuardianDashboardController extends AdministratorController
      */
     public function store(Request $request, $student)
     {
-        //
+        $student = $this->student->where('student_id', $student)->firstOrFail();
+
+        $this->validate($request, [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|unique:guardians',
+        ]);
+
+        $request['password'] = Hash::make(str_replace('-', '', $request->birthdate));
+        
+        $input = $request->all();
+        
+        $this->guardian->create($input);
+        
+        return redirect()->back()->with('success', 'New Guardian has been created!');
     }
 
     /**
