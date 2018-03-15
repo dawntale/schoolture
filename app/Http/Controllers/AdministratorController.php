@@ -13,6 +13,7 @@ use App\Subject;
 use App\Lesson;
 use App\SessionBlock;
 use App\Schedule;
+use App\Guardian;
 
 class AdministratorController extends Controller
 {
@@ -21,7 +22,7 @@ class AdministratorController extends Controller
      *
      * @return void
      */
-    public function __construct(Department $department, Staff $staff, Student $student, Position $position, Grade $grade, Classroom $classroom, Subject $subject, Lesson $lesson, SessionBlock $sessionBlock, Schedule $schedule)
+    public function __construct(Department $department, Staff $staff, Student $student, Position $position, Grade $grade, Classroom $classroom, Subject $subject, Lesson $lesson, SessionBlock $sessionBlock, Schedule $schedule, Guardian $guardian)
     {
         $this->middleware('auth:admin');
         $this->department = $department;
@@ -34,6 +35,7 @@ class AdministratorController extends Controller
         $this->lesson = $lesson;
         $this->sessionBlock = $sessionBlock;
         $this->schedule = $schedule;
+        $this->guardian = $guardian;
     }
 
     /**

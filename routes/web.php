@@ -57,6 +57,9 @@ Route::prefix('dashboard')->group(function(){
         Route::post('/student/{student}/class', 'StudentDashboardController@assignClassStore')->name('student.assignclass.store');
         Route::resource('student', 'StudentDashboardController', 
             ['only' => ['index', 'create', 'store', 'show', 'edit', 'update']]);
+
+        Route::get('/student/{student}/guardian/create', 'GuardianDashboardController@create')->name('guardian.create');
+        Route::post('/student/{student}/guardian', 'GuardianDashboardController@store')->name('guardian.store');
     });
 
     // Subject Section

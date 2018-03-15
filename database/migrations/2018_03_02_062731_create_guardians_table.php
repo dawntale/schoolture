@@ -17,8 +17,11 @@ class CreateGuardiansTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();;
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('birthdate', 10);
+            $table->string('birthplace', 50)->nullable();
+            $table->string('sex', 20);
             $table->string('job')->nullable();
             $table->timestamps();
         });
