@@ -25,9 +25,9 @@ Route::prefix('dashboard')->group(function(){
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
 
         // School Department Section
-        Route::resource('department', 'DepartmentDashboardController', 
-            ['only' => ['index', 'create', 'store', 'edit', 'update']]);
         Route::get('department/department-data', 'DepartmentDashboardController@getDepartmentData')->name('department.data');
+        Route::resource('department', 'DepartmentDashboardController', 
+            ['except' => ['destroy']]);
 
         // School Grade Section
         Route::resource('grade', 'GradeDashboardController', 
@@ -42,9 +42,9 @@ Route::prefix('dashboard')->group(function(){
 
     // Staff Section
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
-        Route::resource('staff', 'StaffDashboardController', 
-            ['only' => ['index', 'create', 'store', 'edit', 'update']]);
         Route::get('staff/staff-data', 'StaffDashboardController@getStaffData')->name('staff.data');
+        Route::resource('staff', 'StaffDashboardController', 
+            ['except' => ['destroy']]);
         
         // Staff Position Section
         Route::resource('position', 'PositionDashboardController', 
@@ -65,7 +65,7 @@ Route::prefix('dashboard')->group(function(){
     // Subject Section
     Route::group(['as' => 'dashboard.', 'namespace' => 'Dashboard'], function(){
         Route::resource('subject', 'SubjectDashboardController', 
-            ['only' => ['create', 'store', 'edit', 'update']]);
+            ['except' => ['destroy']]);
     });
 
     // Schedule Section
